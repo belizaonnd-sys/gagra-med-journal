@@ -47,15 +47,15 @@
         </button>
         <button class="p-6 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition text-center shadow-md shadow-blue-500/20 group" onclick="openAuthModal()">
           <div class="font-semibold text-lg mb-1">Преподаватель</div>
-          <span class="text-xs text-blue-100">Полное управление, редактирование и удаление</span>
+          <span class="text-xs text-blue-100">Полное управление, выставление оценок и редактирование</span>
         </button>
       </div>
     </section>
 
-    <!-- Экран 2: Главный интерфейс -->
+    <!-- Экран 2: Главная панель -->
     <section id="screen-journal" class="hidden screen space-y-6">
       
-      <!-- Дашборд и Таймер -->
+      <!-- Инфоблок объявления и Секундомер -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <div class="lg:col-span-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-5 rounded-2xl shadow-sm relative overflow-hidden">
           <div class="flex justify-between items-start relative z-10">
@@ -63,7 +63,7 @@
               <span class="px-2.5 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-semibold">📢 Объявление училище</span>
               <h3 id="announcement-title" class="font-bold text-lg mt-2">Важное объявление</h3>
             </div>
-            <button class="hidden teacher-col text-xs text-blue-900 bg-white hover:bg-blue-50 font-medium px-3 py-1.5 rounded-lg shadow-sm" onclick="editAnnouncement()">✎ Изменить</button>
+            <button class="hidden teacher-col text-xs text-blue-900 bg-white hover:bg-blue-50 font-medium px-3 py-1.5 rounded-lg shadow-sm" onclick="editAnnouncement()">✎ Редактировать</button>
           </div>
           <p id="announcement-body" class="text-blue-100 text-sm mt-2 whitespace-pre-wrap relative z-10"></p>
         </div>
@@ -85,18 +85,18 @@
 
       <!-- Вкладки навигации -->
       <div class="flex gap-2 border-b border-slate-200 pb-3 overflow-x-auto">
-        <button class="px-4 py-2 bg-blue-600 text-white font-medium text-sm rounded-lg shadow-sm whitespace-nowrap tab-btn" onclick="switchTab('journal', this)">📖 Журнал</button>
-        <button class="px-4 py-2 bg-white text-slate-600 hover:bg-slate-100 font-medium text-sm rounded-lg border border-slate-200 whitespace-nowrap tab-btn" onclick="switchTab('practice', this)">🏥 Практика</button>
-        <button class="px-4 py-2 bg-white text-slate-600 hover:bg-slate-100 font-medium text-sm rounded-lg border border-slate-200 whitespace-nowrap tab-btn" onclick="switchTab('graduates', this)">🎓 Выпускники</button>
-        <button class="px-4 py-2 bg-white text-slate-600 hover:bg-slate-100 font-medium text-sm rounded-lg border border-slate-200 whitespace-nowrap tab-btn" onclick="switchTab('rating', this)">🏆 ТОП-10</button>
-        <button class="px-4 py-2 bg-white text-slate-600 hover:bg-slate-100 font-medium text-sm rounded-lg border border-slate-200 whitespace-nowrap tab-btn" onclick="switchTab('schedule', this)">📅 Расписание</button>
-        <button class="px-4 py-2 bg-white text-slate-600 hover:bg-slate-100 font-medium text-sm rounded-lg border border-slate-200 whitespace-nowrap tab-btn" onclick="switchTab('library', this)">📚 Библиотека</button>
-        <button class="px-4 py-2 bg-white text-slate-600 hover:bg-slate-100 font-medium text-sm rounded-lg border border-slate-200 whitespace-nowrap tab-btn" onclick="switchTab('summary', this)">📊 Сводка</button>
-        <button class="hidden teacher-col px-4 py-2 bg-amber-50 text-amber-800 hover:bg-amber-100 font-medium text-sm rounded-lg border border-amber-200 whitespace-nowrap tab-btn" onclick="switchTab('students', this)">👥 Студенты</button>
-        <button class="hidden teacher-col px-4 py-2 bg-slate-100 text-slate-700 hover:bg-slate-200 font-medium text-sm rounded-lg border border-slate-200 whitespace-nowrap tab-btn" onclick="switchTab('settings', this)">⚙ Справочники</button>
+        <button class="px-4 py-2 bg-blue-600 text-white font-medium text-sm rounded-lg shadow-sm whitespace-nowrap tab-btn" onclick="switchTab('journal')">📖 Журнал успеваемости</button>
+        <button class="px-4 py-2 bg-white text-slate-600 hover:bg-slate-100 font-medium text-sm rounded-lg border border-slate-200 whitespace-nowrap tab-btn" onclick="switchTab('practice')">🏥 Практика</button>
+        <button class="px-4 py-2 bg-white text-slate-600 hover:bg-slate-100 font-medium text-sm rounded-lg border border-slate-200 whitespace-nowrap tab-btn" onclick="switchTab('graduates')">🎓 Выпускники</button>
+        <button class="px-4 py-2 bg-white text-slate-600 hover:bg-slate-100 font-medium text-sm rounded-lg border border-slate-200 whitespace-nowrap tab-btn" onclick="switchTab('rating')">🏆 Рейтинг ТОП-10</button>
+        <button class="px-4 py-2 bg-white text-slate-600 hover:bg-slate-100 font-medium text-sm rounded-lg border border-slate-200 whitespace-nowrap tab-btn" onclick="switchTab('schedule')">📅 Расписание</button>
+        <button class="px-4 py-2 bg-white text-slate-600 hover:bg-slate-100 font-medium text-sm rounded-lg border border-slate-200 whitespace-nowrap tab-btn" onclick="switchTab('library')">📚 Библиотека</button>
+        <button class="px-4 py-2 bg-white text-slate-600 hover:bg-slate-100 font-medium text-sm rounded-lg border border-slate-200 whitespace-nowrap tab-btn" onclick="switchTab('summary')">📊 Итоговая сводка</button>
+        <button class="hidden teacher-col px-4 py-2 bg-amber-50 text-amber-800 hover:bg-amber-100 font-medium text-sm rounded-lg border border-amber-200 whitespace-nowrap tab-btn" onclick="switchTab('students')">👥 Студенты</button>
+        <button class="hidden teacher-col px-4 py-2 bg-slate-100 text-slate-700 hover:bg-slate-200 font-medium text-sm rounded-lg border border-slate-200 whitespace-nowrap tab-btn" onclick="switchTab('settings')">⚙ Справочники</button>
       </div>
 
-      <!-- 1. Журнал успеваемости -->
+      <!-- Вкладка 1: Журнал успеваемости -->
       <div id="tab-journal" class="tab-content bg-white border border-slate-200 rounded-2xl p-4 md:p-6 shadow-sm">
         <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
           <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto">
@@ -129,7 +129,7 @@
           <table class="w-full border-collapse text-left text-sm">
             <thead>
               <tr id="journal-header-row" class="bg-slate-100 text-slate-700 border-b border-slate-200">
-                <th class="p-3 sticky left-0 bg-slate-100 z-10 min-w-[220px]">Студент</th>
+                <th class="p-3 sticky left-0 bg-slate-100 z-10 min-w-[220px]">Студент (А–Я)</th>
               </tr>
             </thead>
             <tbody id="journal-body-rows" class="divide-y divide-slate-100"></tbody>
@@ -137,14 +137,14 @@
         </div>
       </div>
 
-      <!-- 2. Практика -->
+      <!-- Вкладка 2: Практика -->
       <div id="tab-practice" class="tab-content hidden bg-white border border-slate-200 rounded-2xl p-4 md:p-6 shadow-sm">
         <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
           <div>
             <h3 class="font-bold text-lg text-slate-800">Реестр производственной и клинической практики</h3>
             <p class="text-xs text-slate-500">Учёт баз практики, кураторов, отработанных часов и зачётов</p>
           </div>
-          <button class="hidden teacher-col px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg shadow-sm" onclick="openPracticeModal()">+ Добавить практику</button>
+          <button class="hidden teacher-col px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg shadow-sm" onclick="openPracticeModal()">+ Добавить запись практики</button>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
@@ -191,12 +191,12 @@
         </div>
       </div>
 
-      <!-- 3. Выпускники -->
+      <!-- Вкладка 3: Выпускники -->
       <div id="tab-graduates" class="tab-content hidden bg-white border border-slate-200 rounded-2xl p-4 md:p-6 shadow-sm">
         <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
           <div>
             <h3 class="font-bold text-lg text-slate-800">🎓 Ассоциация выпускников Гагрского медучилища</h3>
-            <p class="text-xs text-slate-500">База данных специалистов и места трудоустройства</p>
+            <p class="text-xs text-slate-500">База данных специалистов, гордость училища и труды выпускников</p>
           </div>
           <button class="hidden teacher-col px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg shadow-sm" onclick="openGraduateModal()">+ Внести выпускника</button>
         </div>
@@ -210,6 +210,7 @@
               <option value="2025">2025 год</option>
               <option value="2024">2024 год</option>
               <option value="2023">2023 год</option>
+              <option value="2022">2022 год</option>
             </select>
           </div>
           <div>
@@ -218,14 +219,14 @@
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-500 mb-1">Поиск</label>
-            <input type="text" id="search-grad" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm" placeholder="ФИО или больница..." oninput="renderGraduates()">
+            <input type="text" id="search-grad" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm" placeholder="Поиск по ФИО или работе..." oninput="renderGraduates()">
           </div>
         </div>
 
         <div id="graduates-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
       </div>
 
-      <!-- 4. Рейтинг ТОП-10 -->
+      <!-- Вкладка 4: Рейтинг ТОП-10 -->
       <div id="tab-rating" class="tab-content hidden bg-white border border-slate-200 rounded-2xl p-4 md:p-6 shadow-sm">
         <div class="mb-6">
           <h3 class="font-bold text-lg text-slate-800">🏆 Рейтинг лучших студентов училища</h3>
@@ -234,14 +235,14 @@
         <div id="rating-list" class="space-y-3 max-w-3xl"></div>
       </div>
 
-      <!-- 5. Расписание -->
+      <!-- Вкладка 5: Расписание -->
       <div id="tab-schedule" class="tab-content hidden bg-white border border-slate-200 rounded-2xl p-4 md:p-6 shadow-sm">
         <div class="flex justify-between items-center mb-6">
           <div>
             <h3 class="font-bold text-lg text-slate-800">📅 Расписание занятий и звонков</h3>
-            <p class="text-xs text-slate-500">График пар, аудитории и время уроков</p>
+            <p class="text-xs text-slate-500">График пар, аудитории и время звонков</p>
           </div>
-          <button class="hidden teacher-col px-3.5 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg shadow-sm" onclick="openScheduleModal()">+ Добавить занятие</button>
+          <button class="hidden teacher-col px-3.5 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg shadow-sm" onclick="openScheduleModal()">+ Занятие в расписание</button>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -259,19 +260,19 @@
         </div>
       </div>
 
-      <!-- 6. Библиотека -->
+      <!-- Вкладка 6: Библиотека -->
       <div id="tab-library" class="tab-content hidden bg-white border border-slate-200 rounded-2xl p-4 md:p-6 shadow-sm">
         <div class="flex justify-between items-center mb-6">
           <div>
             <h3 class="font-bold text-lg text-slate-800">📚 Цифровая библиотека и протоколы</h3>
-            <p class="text-xs text-slate-500">Учебники, методички и стандарты оказания МП</p>
+            <p class="text-xs text-slate-500">Учебные пособия, стандарты оказания МП и клинические рекомендации</p>
           </div>
-          <button class="hidden teacher-col px-3.5 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg shadow-sm" onclick="openBookModal()">+ Добавить материал</button>
+          <button class="hidden teacher-col px-3.5 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg shadow-sm" onclick="openBookModal()">+ Добавить учебный материал</button>
         </div>
         <div id="library-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
       </div>
 
-      <!-- 7. Итоговая сводка -->
+      <!-- Вкладка 7: Итоговая сводка -->
       <div id="tab-summary" class="tab-content hidden bg-white border border-slate-200 rounded-2xl p-4 md:p-6 shadow-sm">
         <h3 class="font-bold text-lg text-slate-800 mb-1">Сводная ведомость успеваемости</h3>
         <p class="text-xs text-slate-500 mb-6">Автоматический расчёт среднего балла и пропусков</p>
@@ -280,7 +281,7 @@
           <table class="w-full border-collapse text-left text-sm">
             <thead>
               <tr class="bg-slate-100 text-slate-700 border-b border-slate-200">
-                <th class="p-3">Студент</th>
+                <th class="p-3">Студент (А–Я)</th>
                 <th class="p-3">Факультет / Курс</th>
                 <th class="p-3 text-center">Средний балл</th>
                 <th class="p-3 text-center">Оценки (5/4/3/2)</th>
@@ -293,12 +294,12 @@
         </div>
       </div>
 
-      <!-- 8. Студенты -->
+      <!-- Вкладка 8: Студенты -->
       <div id="tab-students" class="tab-content hidden bg-white border border-slate-200 rounded-2xl p-4 md:p-6 shadow-sm">
         <div class="flex justify-between items-center mb-6">
           <div>
             <h3 class="font-bold text-lg text-slate-800">Картотека студентов</h3>
-            <p class="text-xs text-slate-500">Управление личными делами групп</p>
+            <p class="text-xs text-slate-500">Управление личными делами групп (сортировка А–Я)</p>
           </div>
           <button class="px-3.5 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg shadow-sm" onclick="openStudentModal()">+ Добавить студента</button>
         </div>
@@ -319,7 +320,7 @@
         </div>
       </div>
 
-      <!-- 9. Справочники -->
+      <!-- Вкладка 9: Справочники -->
       <div id="tab-settings" class="tab-content hidden bg-white border border-slate-200 rounded-2xl p-4 md:p-6 shadow-sm">
         <h3 class="font-bold text-lg text-slate-800 mb-1">⚙ Управление справочниками</h3>
         <p class="text-xs text-slate-500 mb-6">Редактируйте или удаляйте любые параметры системы</p>
@@ -359,6 +360,76 @@
 
   <!-- Модальные окна -->
 
+  <!-- Практика -->
+  <div id="practice-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-2xl p-6 w-full max-w-lg shadow-xl max-h-[90vh] overflow-y-auto">
+      <h3 id="practice-modal-title" class="font-bold text-lg text-slate-900 mb-4">Параметры практики</h3>
+      <form onsubmit="handleSavePractice(event)">
+        <input type="hidden" id="edit-prac-id" value="">
+        <div class="mb-3">
+          <label class="block text-xs font-semibold text-slate-500 mb-1">Студент</label>
+          <select id="prac-student" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm outline-none" required></select>
+        </div>
+        <div class="grid grid-cols-2 gap-3 mb-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-500 mb-1">Вид практики</label>
+            <select id="prac-type" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm outline-none">
+              <option value="Учебная">Учебная практика</option>
+              <option value="Производственная">Производственная практика</option>
+              <option value="Преддипломная">Преддипломная практика</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-500 mb-1">Часы</label>
+            <input type="number" id="prac-hours" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm outline-none" value="72" required>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="block text-xs font-semibold text-slate-500 mb-1">ЛПУ / База практики</label>
+          <input type="text" id="prac-base" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm outline-none" placeholder="Гагрская ЦРБ" required>
+        </div>
+        <div class="grid grid-cols-2 gap-3 mb-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-500 mb-1">Руководитель от ЛПУ</label>
+            <input type="text" id="prac-mentor-lpu" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-500 mb-1">Руководитель от училища</label>
+            <input type="text" id="prac-mentor-college" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm outline-none">
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3 mb-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-500 mb-1">Статус</label>
+            <select id="prac-status" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm outline-none">
+              <option value="Зачтено">Зачтено</option>
+              <option value="Допущен">Допущен</option>
+              <option value="На защите">На защите</option>
+              <option value="Не зачтено">Не зачтено</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-500 mb-1">Оценка</label>
+            <select id="prac-grade" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm outline-none">
+              <option value="Отлично (5)">Отлично (5)</option>
+              <option value="Хорошо (4)">Хорошо (4)</option>
+              <option value="Удовлетворительно (3)">Удовлетворительно (3)</option>
+              <option value="Зачет">Зачет</option>
+            </select>
+          </div>
+        </div>
+        <div class="mb-4">
+          <label class="block text-xs font-semibold text-slate-500 mb-1">Замечания / Заметки</label>
+          <textarea id="prac-notes" rows="2" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm outline-none"></textarea>
+        </div>
+        <div class="flex justify-end gap-2">
+          <button type="button" class="px-4 py-2 border rounded-lg text-sm" onclick="closePracticeModal()">Отмена</button>
+          <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm">Сохранить</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- Выпускник -->
   <div id="graduate-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
     <div class="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl">
@@ -376,7 +447,7 @@
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-500 mb-1">Год выпуска</label>
-            <input type="number" id="grad-year" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm outline-none" value="2025" required>
+            <input type="number" id="grad-year" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm outline-none" value="2026" required>
           </div>
         </div>
         <div class="mb-3">
@@ -395,32 +466,32 @@
     </div>
   </div>
 
-  <!-- Материал библиотеки -->
+  <!-- Библиотека -->
   <div id="book-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
     <div class="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl">
       <h3 id="book-modal-title" class="font-bold text-lg text-slate-900 mb-4">Учебный материал</h3>
       <form onsubmit="handleSaveBook(event)">
         <input type="hidden" id="edit-book-id" value="">
         <div class="mb-3">
-          <label class="block text-xs font-semibold text-slate-500 mb-1">Название книги / протокола</label>
-          <input type="text" id="book-title" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm outline-none" required>
+          <label class="block text-xs font-semibold text-slate-500 mb-1">Название книги / Пособия</label>
+          <input type="text" id="book-title" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm outline-none" required placeholder="Анатомия человека">
         </div>
         <div class="mb-3">
           <label class="block text-xs font-semibold text-slate-500 mb-1">Автор / Организация</label>
-          <input type="text" id="book-author" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm outline-none" required>
+          <input type="text" id="book-author" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm outline-none" placeholder="Синельников Р.Д.">
         </div>
         <div class="mb-3">
           <label class="block text-xs font-semibold text-slate-500 mb-1">Категория</label>
           <select id="book-category" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm outline-none">
             <option value="Учебник">Учебник</option>
-            <option value="Протокол МП">Протокол МП</option>
+            <option value="Протокол">Протокол / Стандарт</option>
             <option value="Методичка">Методическое пособие</option>
-            <option value="ГОСТ">Стандарт / ГОСТ</option>
+            <option value="Лекция">Конспект лекции</option>
           </select>
         </div>
         <div class="mb-4">
-          <label class="block text-xs font-semibold text-slate-500 mb-1">Ссылка на документ/файл (URL)</label>
-          <input type="text" id="book-link" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm outline-none" value="#" placeholder="https://...">
+          <label class="block text-xs font-semibold text-slate-500 mb-1">Ссылка на документ (URL)</label>
+          <input type="text" id="book-link" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm outline-none" placeholder="https://..." value="#">
         </div>
         <div class="flex justify-end gap-2">
           <button type="button" class="px-4 py-2 border border-slate-200 hover:bg-slate-100 rounded-lg text-sm font-medium" onclick="closeBookModal()">Отмена</button>
@@ -430,10 +501,10 @@
     </div>
   </div>
 
-  <!-- Элемент расписания -->
+  <!-- Расписание -->
   <div id="schedule-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
     <div class="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl">
-      <h3 id="schedule-modal-title" class="font-bold text-lg text-slate-900 mb-4">Добавить занятие в расписание</h3>
+      <h3 id="schedule-modal-title" class="font-bold text-lg text-slate-900 mb-4">Занятие в расписание</h3>
       <form onsubmit="handleSaveSchedule(event)">
         <input type="hidden" id="edit-sched-id" value="">
         <div class="mb-3">
@@ -448,17 +519,17 @@
           </select>
         </div>
         <div class="mb-3">
-          <label class="block text-xs font-semibold text-slate-500 mb-1">Дисциплина</label>
-          <input type="text" id="sched-sub" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm outline-none" required placeholder="Фармакология">
+          <label class="block text-xs font-semibold text-slate-500 mb-1">Дисциплина / Предмет</label>
+          <select id="sched-subject" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm outline-none"></select>
         </div>
         <div class="grid grid-cols-2 gap-3 mb-4">
           <div>
-            <label class="block text-xs font-semibold text-slate-500 mb-1">Время</label>
+            <label class="block text-xs font-semibold text-slate-500 mb-1">Время пара</label>
             <input type="text" id="sched-time" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm outline-none" value="08:30 - 10:00">
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-500 mb-1">Аудитория</label>
-            <input type="text" id="sched-room" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm outline-none" value="Каб. 102">
+            <input type="text" id="sched-room" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm outline-none" placeholder="Каб. 102">
           </div>
         </div>
         <div class="flex justify-end gap-2">
@@ -469,7 +540,7 @@
     </div>
   </div>
 
-  <!-- Модалка авторизации -->
+  <!-- Вход, Дата, Студент -->
   <div id="auth-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
     <div class="bg-white rounded-2xl p-6 w-full max-w-sm shadow-xl">
       <h3 class="font-bold text-lg text-slate-900 mb-4">Вход преподавателя</h3>
@@ -487,7 +558,6 @@
     </div>
   </div>
 
-  <!-- Модалка даты урока -->
   <div id="date-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
     <div class="bg-white rounded-2xl p-6 w-full max-w-sm shadow-xl">
       <h3 id="date-modal-title" class="font-bold text-lg mb-4">Занятие / Дата</h3>
@@ -514,15 +584,14 @@
     </div>
   </div>
 
-  <!-- Модалка студента -->
   <div id="student-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
     <div class="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl">
       <h3 id="student-modal-title" class="font-bold text-lg mb-4">Карточка студента</h3>
       <form onsubmit="handleSaveStudent(event)">
         <input type="hidden" id="modal-student-id" value="">
         <div class="mb-3">
-          <label class="block text-xs font-semibold text-slate-500 mb-1">ФИО</label>
-          <input type="text" id="modal-student-name" class="w-full px-3 py-2 border rounded-lg text-sm" required>
+          <label class="block text-xs font-semibold text-slate-500 mb-1">ФИО Студента</label>
+          <input type="text" id="modal-student-name" class="w-full px-3 py-2 border rounded-lg text-sm" placeholder="Иванов И. И." required>
         </div>
         <div class="grid grid-cols-2 gap-3 mb-3">
           <div>
@@ -556,44 +625,13 @@
     </div>
   </div>
 
-  <!-- Модалка практики -->
-  <div id="practice-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
-    <div class="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl">
-      <h3 id="practice-modal-title" class="font-bold text-lg mb-4">Параметры практики</h3>
-      <form onsubmit="handleSavePractice(event)">
-        <input type="hidden" id="edit-prac-id" value="">
-        <div class="mb-3">
-          <label class="block text-xs font-semibold text-slate-500 mb-1">Студент</label>
-          <select id="prac-student" class="w-full px-3 py-2 border rounded-lg text-sm" required></select>
-        </div>
-        <div class="mb-3">
-          <label class="block text-xs font-semibold text-slate-500 mb-1">ЛПУ / Больница</label>
-          <input type="text" id="prac-base" class="w-full px-3 py-2 border rounded-lg text-sm" required placeholder="Гагрская ЦРБ">
-        </div>
-        <div class="grid grid-cols-2 gap-3 mb-4">
-          <div>
-            <label class="block text-xs font-semibold text-slate-500 mb-1">Вид практики</label>
-            <select id="prac-type" class="w-full px-3 py-2 border rounded-lg text-sm">
-              <option value="Производственная">Производственная</option>
-              <option value="Учебная">Учебная</option>
-              <option value="Преддипломная">Преддипломная</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-500 mb-1">Статус</label>
-            <select id="prac-status" class="w-full px-3 py-2 border rounded-lg text-sm">
-              <option value="Зачтено">Зачтено</option>
-              <option value="Допущен">Допущен</option>
-              <option value="Не зачтено">Не зачтено</option>
-            </select>
-          </div>
-        </div>
-        <div class="flex justify-end gap-2">
-          <button type="button" class="px-4 py-2 border rounded-lg text-sm" onclick="closePracticeModal()">Отмена</button>
-          <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm">Сохранить</button>
-        </div>
-      </form>
+  <!-- Печатный блок -->
+  <div id="printable-area" class="hidden p-8 bg-white text-black">
+    <div class="text-center border-b pb-4 mb-6">
+      <h2 class="text-xl font-bold uppercase">Гагрское медицинское училище</h2>
+      <h3 class="text-lg font-semibold mt-1">АТТЕСТАЦИОННЫЙ ЛИСТ ПРОИЗВОДСТВЕННОЙ ПРАКТИКИ</h3>
     </div>
+    <div id="print-content" class="space-y-4 text-sm leading-relaxed"></div>
   </div>
 
   <!-- Firebase SDK -->
@@ -617,7 +655,7 @@
 
     let currentRole = 'guest';
     let appData = {
-      announcement: { title: "Важное объявление", body: "Приветствуем студентов и преподавателей на обновленном портале ГМУ!" },
+      announcement: { title: "Важное объявление", body: "Приветствуем студентов и преподавателей на портале ГМУ!" },
       faculties: ["Сестринское дело", "Лечебное дело", "Акушерское дело", "Фармация"],
       courses: ["1 курс", "2 курс", "3 курс", "4 курс"],
       subjects: ["Анатомия и физиология", "Фармакология", "Основы сестринского дела", "Терапия", "Хирургия"],
@@ -626,28 +664,21 @@
         { id: 1, name: "Ажиба Аида", faculty: "Сестринское дело", course: "1 курс", card: "1012", phone: "+7 (940) 123-45-67", note: "Староста" },
         { id: 2, name: "Барциц Даур", faculty: "Лечебное дело", course: "2 курс", card: "1015", phone: "", note: "" }
       ],
-      dates: [
-        { id: 'd1', date: "2026-10-01", type: "Лекция", subject: "Анатомия и физиология" }
-      ],
+      dates: [{ id: 'd1', date: "2026-10-01", type: "Лекция", subject: "Анатомия и физиология" }],
       journal: { "1_d1": "5" },
-      practice: [
-        { id: 1, studentId: 1, type: "Производственная", base: "Гагрская ЦРБ", mentorLpu: "Аршба Л.В.", status: "Зачтено" }
-      ],
+      practice: [],
       graduates: [
-        { id: 1, name: "Квициния Мадина Руслановна", faculty: "Лечебное дело", year: "2025", work: "Гагрская ЦРБ, фельдшер", isRed: true },
-        { id: 2, name: "Чкотуа Леон Викторович", faculty: "Сестринское дело", year: "2024", work: "Скорая помощь г. Гагра", isRed: false }
+        { id: 1, name: "Квициния Мадина Руслановна", faculty: "Лечебное дело", year: "2023", work: "Гагрская ЦРБ, врач-фельдшер", isRed: true }
       ],
       books: [
-        { id: 1, title: "Анатомия человека (Атлас)", author: "Синельников Р.Д.", category: "Учебник", link: "#" },
-        { id: 2, title: "Алгоритмы неотложной помощи", author: "Минздрав", category: "Протокол МП", link: "#" }
+        { id: 1, title: "Анатомия человека (Атлас)", author: "Синельников Р.Д.", category: "Учебник", link: "#" }
       ],
       schedule: [
-        { id: 1, day: "Понедельник", sub: "Анатомия и физиология", time: "08:30 - 10:00", room: "Каб. 102" },
-        { id: 2, day: "Вторник", sub: "Основы сестринского дела", time: "10:10 - 11:40", room: "Симуляционный класс" }
+        { id: 1, day: 'Понедельник', subject: 'Анатомия и физиология', time: '08:30 - 10:00', room: 'Каб. 102' }
       ]
     };
 
-    // Таймер Секундомер
+    // Секундомер
     let timerInterval = null, timerStartTime = 0, timerRunning = false;
     function toggleTimer() {
       if(!timerRunning) {
@@ -657,8 +688,7 @@
           const secs = Math.floor(elapsed / 1000) % 60;
           const mins = Math.floor(elapsed / 60000);
           const ms = Math.floor((elapsed % 1000) / 100);
-          document.getElementById('timer-display').textContent = 
-            `${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}.${ms}`;
+          document.getElementById('timer-display').textContent = `${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}.${ms}`;
         }, 100);
         document.getElementById('timer-start-btn').textContent = "Пауза";
         timerRunning = true;
@@ -676,13 +706,20 @@
       document.getElementById('timer-start-btn').textContent = "Старт";
     }
 
-    // Синхронизация в облаке
+    function sortStudentsAlphabetically() {
+      if (appData.students && Array.isArray(appData.students)) {
+        appData.students.sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+      }
+    }
+
     db.collection("gagramed").doc("main").onSnapshot((doc) => {
       if (doc.exists) {
         appData = doc.data();
         if(!appData.graduates) appData.graduates = [];
         if(!appData.books) appData.books = [];
         if(!appData.schedule) appData.schedule = [];
+        if(!appData.practice) appData.practice = [];
+        sortStudentsAlphabetically();
         initSelects();
         renderAnnouncement();
         renderJournal();
@@ -699,7 +736,10 @@
       }
     });
 
-    function saveData() { db.collection("gagramed").doc("main").set(appData); }
+    function saveData() {
+      sortStudentsAlphabetically();
+      db.collection("gagramed").doc("main").set(appData);
+    }
 
     function initSelects() {
       const facs = appData.faculties || [];
@@ -721,7 +761,7 @@
         if(el) el.innerHTML = crs.map(c => `<option value="${c}">${c}</option>`).join('');
       });
 
-      ['filter-subject'].forEach(id => {
+      ['filter-subject', 'sched-subject'].forEach(id => {
         const el = document.getElementById(id);
         if(el) el.innerHTML = subs.map(s => `<option value="${s}">${s}</option>`).join('');
       });
@@ -759,6 +799,12 @@
         logoutBtn.classList.add('hidden');
         teacherCols.forEach(el => el.classList.add('hidden'));
       }
+      renderJournal();
+      renderPractice();
+      renderGraduates();
+      renderLibrary();
+      renderSchedule();
+      renderStudents();
     }
 
     function openAuthModal() { document.getElementById('auth-modal').classList.remove('hidden'); }
@@ -773,29 +819,31 @@
     }
     function logout() { showLanding(); }
 
-    function switchTab(tabName, btnEl) {
+    function switchTab(tabName) {
       document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
       document.getElementById(`tab-${tabName}`).classList.remove('hidden');
       document.querySelectorAll('.tab-btn').forEach(b => {
         b.classList.remove('bg-blue-600', 'text-white');
         b.classList.add('bg-white', 'text-slate-600');
       });
-      if(btnEl) {
-        btnEl.classList.remove('bg-white', 'text-slate-600');
-        btnEl.classList.add('bg-blue-600', 'text-white');
-      }
+      event.currentTarget.classList.remove('bg-white', 'text-slate-600');
+      event.currentTarget.classList.add('bg-blue-600', 'text-white');
     }
 
     function pickRandomStudent() {
       const selFac = document.getElementById('filter-faculty').value;
       const selCourse = document.getElementById('filter-course').value;
       const students = (appData.students || []).filter(s => s.faculty === selFac && s.course === selCourse);
-      if(students.length === 0) { alert("В выбранной группе нет студентов!"); return; }
-      const rand = students[Math.floor(Math.random() * students.length)];
-      alert(`🎲 К ДОСКЕ ВЫЗЫВАЕТСЯ:\n\n👤 ${rand.name}\n📚 ${rand.faculty} (${rand.course})`);
+
+      if(students.length === 0) {
+        alert("В выбранной группе нет студентов!");
+        return;
+      }
+      const randomStudent = students[Math.floor(Math.random() * students.length)];
+      alert(`🎲 К ДОСКЕ ВЫЗЫВАЕТСЯ:\n\n👤 ${randomStudent.name}\n📚 ${randomStudent.faculty} (${randomStudent.course})`);
     }
 
-    // 1. Журнал
+    // 1. ЖУРНАЛ
     function renderJournal() {
       const selFac = document.getElementById('filter-faculty').value;
       const selCourse = document.getElementById('filter-course').value;
@@ -803,43 +851,45 @@
       const searchVal = (document.getElementById('search-student-journal').value || '').toLowerCase();
 
       let students = (appData.students || []).filter(s => s.faculty === selFac && s.course === selCourse);
+      students.sort((a,b) => a.name.localeCompare(b.name, 'ru'));
+
       if(searchVal) students = students.filter(st => st.name.toLowerCase().includes(searchVal));
       const dates = (appData.dates || []).filter(d => d.subject === selSub);
 
       const headerRow = document.getElementById('journal-header-row');
-      let htmlHead = `<th class="p-3 sticky left-0 bg-slate-100 z-10 min-w-[220px]">Студент</th>`;
+      let htmlHead = `<th class="p-3 sticky left-0 bg-slate-100 z-10 min-w-[220px]">Студент (А–Я)</th>`;
       dates.forEach(d => {
         htmlHead += `
-          <th class="p-2 text-center min-w-[100px] border-l border-slate-200">
+          <th class="p-2.5 text-center min-w-[110px] border-l border-slate-200">
             <div class="font-bold text-xs">${d.date}</div>
             <div class="text-[10px] text-slate-500 font-normal">${d.type}</div>
             ${currentRole === 'teacher' ? `
               <div class="flex justify-center gap-1 mt-1">
-                <button onclick="deleteDate('${d.id}')" title="Удалить дату" class="text-red-500 hover:text-red-700 text-[10px] font-bold">✕ удал</button>
+                <button onclick="deleteDate('${d.id}')" title="Удалить дату" class="text-red-500 hover:text-red-700 text-[10px] font-bold">✕</button>
               </div>
             ` : ''}
           </th>`;
       });
-      htmlHead += `<th class="p-3 text-center bg-slate-200/60 font-bold min-w-[80px]">Ср. балл</th>`;
+      htmlHead += `<th class="p-3 text-center bg-slate-200 font-bold min-w-[80px]">Ср. балл</th>`;
       headerRow.innerHTML = htmlHead;
 
       const bodyRows = document.getElementById('journal-body-rows');
-      if (students.length === 0) {
-        bodyRows.innerHTML = `<tr><td colspan="${dates.length + 2}" class="p-6 text-center text-slate-400">Нет студентов в выбранной группе</td></tr>`;
+      if(students.length === 0) {
+        bodyRows.innerHTML = `<tr><td colspan="${dates.length + 2}" class="p-6 text-center text-slate-400">Нет студентов в группе</td></tr>`;
         return;
       }
 
       bodyRows.innerHTML = students.map(st => {
         let sum = 0, count = 0;
-        let row = `<tr class="hover:bg-slate-50"><td class="p-3 font-medium sticky left-0 bg-white border-r border-slate-100">${st.name}</td>`;
+        let row = `<tr class="hover:bg-slate-50"><td class="p-3 font-medium sticky left-0 bg-white border-r">${st.name}</td>`;
         dates.forEach(d => {
           const key = `${st.id}_${d.id}`;
           const val = appData.journal[key] || "";
           if(['5','4','3','2'].includes(val)) { sum += Number(val); count++; }
           row += `
-            <td class="p-1 text-center border-l border-slate-100">
+            <td class="p-1 text-center border-l">
               ${currentRole === 'teacher' ? `
-                <select onchange="updateGrade(${st.id}, '${d.id}', this.value)" class="w-full text-center bg-slate-50 border border-slate-200 rounded text-xs font-bold py-1">
+                <select onchange="updateGrade(${st.id}, '${d.id}', this.value)" class="w-full text-center bg-slate-50 border rounded text-xs font-bold py-1">
                   <option value="">-</option>
                   ${(appData.grades || []).map(g => `<option value="${g}" ${val === g ? 'selected' : ''}>${g}</option>`).join('')}
                 </select>
@@ -857,6 +907,7 @@
       else delete appData.journal[`${studentId}_${dateId}`];
       saveData(); renderJournal(); renderRating();
     }
+
     function openDateModal() { document.getElementById('date-modal').classList.remove('hidden'); }
     function closeDateModal() { document.getElementById('date-modal').classList.add('hidden'); }
     function handleSaveDate(e) {
@@ -870,13 +921,13 @@
       saveData(); closeDateModal(); renderJournal();
     }
     function deleteDate(dateId) {
-      if(confirm("Удалить эту дату уроков и все отметки за неё?")) {
+      if(confirm("Удалить эту дату и оценки?")) {
         appData.dates = appData.dates.filter(d => d.id !== dateId);
         saveData(); renderJournal();
       }
     }
 
-    // 2. Практика
+    // 2. ПРАКТИКА
     function renderPractice() {
       const tbody = document.getElementById('practice-tbody');
       const filterType = document.getElementById('filter-prac-type').value;
@@ -886,76 +937,111 @@
       let items = appData.practice || [];
       if(filterType !== 'ALL') items = items.filter(p => p.type === filterType);
       if(filterStatus !== 'ALL') items = items.filter(p => p.status === filterStatus);
-      if(searchVal) {
-        items = items.filter(p => {
-          const st = (appData.students || []).find(s => s.id === p.studentId) || {};
-          return (st.name || '').toLowerCase().includes(searchVal) || (p.base || '').toLowerCase().includes(searchVal);
-        });
-      }
+      if(searchVal) items = items.filter(p => {
+        const st = appData.students.find(s => s.id === p.studentId) || {};
+        return (st.name || '').toLowerCase().includes(searchVal) || (p.base || '').toLowerCase().includes(searchVal);
+      });
 
       if(items.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7" class="p-6 text-center text-slate-400">Нет записей практики</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="7" class="p-6 text-center text-slate-400">Записей нет</td></tr>`;
         return;
       }
 
       tbody.innerHTML = items.map(p => {
-        const st = (appData.students || []).find(s => s.id === p.studentId) || { name: "Неизвестный" };
+        const st = appData.students.find(s => s.id === p.studentId) || { name: "Неизвестно", faculty: "-" };
         return `
           <tr class="hover:bg-slate-50">
-            <td class="p-3 font-semibold text-slate-900">${st.name}</td>
-            <td class="p-3"><span class="px-2 py-0.5 bg-slate-100 rounded text-xs font-medium">${p.type}</span></td>
-            <td class="p-3">${p.base}</td>
-            <td class="p-3 text-xs text-slate-600">${p.mentorLpu || '-'}</td>
-            <td class="p-3 text-center font-bold">72 ч.</td>
-            <td class="p-3 text-center"><span class="px-2.5 py-1 text-xs font-bold rounded-full bg-emerald-100 text-emerald-800">${p.status}</span></td>
+            <td class="p-3 font-semibold">${st.name}</td>
+            <td class="p-3 text-xs">${p.type}</td>
+            <td class="p-3 text-slate-700">${p.base}</td>
+            <td class="p-3 text-xs text-slate-500">ЛПУ: ${p.mentorLpu || '-'}<br>Училище: ${p.mentorCollege || '-'}</td>
+            <td class="p-3 text-center font-bold">${p.hours} ч.</td>
+            <td class="p-3 text-center"><span class="px-2 py-0.5 rounded text-xs font-bold ${p.status === 'Зачтено' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">${p.status}</span></td>
             <td class="p-3 text-center">
+              <button onclick="printPracticeCard(${p.id})" class="text-xs text-slate-600 border px-2 py-1 rounded bg-white mr-1">🖨 Печать</button>
               ${currentRole === 'teacher' ? `
-                <button onclick="editPractice(${p.id})" class="text-blue-600 font-semibold text-xs mr-2 hover:underline">✎ Изм.</button>
-                <button onclick="deletePractice(${p.id})" class="text-red-500 font-semibold text-xs hover:underline">🗑️ Удал.</button>
-              ` : '-'}
+                <button onclick="editPractice(${p.id})" class="text-xs text-blue-600 font-semibold mr-1">✏</button>
+                <button onclick="deletePractice(${p.id})" class="text-xs text-red-500 font-semibold">🗑</button>
+              ` : ''}
             </td>
           </tr>`;
       }).join('');
     }
-    function openPracticeModal() { document.getElementById('edit-prac-id').value = ''; document.getElementById('practice-modal').classList.remove('hidden'); }
-    function closePracticeModal() { document.getElementById('practice-modal').classList.add('hidden'); }
+
+    function openPracticeModal() {
+      document.getElementById('edit-prac-id').value = '';
+      document.getElementById('prac-base').value = '';
+      document.getElementById('practice-modal-title').textContent = 'Добавить запись практики';
+      document.getElementById('practice-modal').classList.remove('hidden');
+    }
+
     function editPractice(id) {
       const p = appData.practice.find(item => item.id === id);
       if(!p) return;
       document.getElementById('edit-prac-id').value = p.id;
       document.getElementById('prac-student').value = p.studentId;
-      document.getElementById('prac-base').value = p.base;
       document.getElementById('prac-type').value = p.type;
+      document.getElementById('prac-hours').value = p.hours;
+      document.getElementById('prac-base').value = p.base;
+      document.getElementById('prac-mentor-lpu').value = p.mentorLpu || '';
+      document.getElementById('prac-mentor-college').value = p.mentorCollege || '';
       document.getElementById('prac-status').value = p.status;
+      document.getElementById('prac-grade').value = p.grade;
+      document.getElementById('prac-notes').value = p.notes || '';
+      document.getElementById('practice-modal-title').textContent = 'Редактировать практику';
       document.getElementById('practice-modal').classList.remove('hidden');
     }
+
+    function closePracticeModal() { document.getElementById('practice-modal').classList.add('hidden'); }
     function handleSavePractice(e) {
       e.preventDefault();
-      const id = document.getElementById('edit-prac-id').value;
+      const editId = document.getElementById('edit-prac-id').value;
       const pracData = {
         studentId: Number(document.getElementById('prac-student').value),
-        base: document.getElementById('prac-base').value,
         type: document.getElementById('prac-type').value,
+        hours: Number(document.getElementById('prac-hours').value),
+        base: document.getElementById('prac-base').value,
+        mentorLpu: document.getElementById('prac-mentor-lpu').value,
+        mentorCollege: document.getElementById('prac-mentor-college').value,
         status: document.getElementById('prac-status').value,
-        mentorLpu: "Куратор ЛПУ"
+        grade: document.getElementById('prac-grade').value,
+        notes: document.getElementById('prac-notes').value
       };
 
-      if(id) {
-        const idx = appData.practice.findIndex(p => p.id == id);
-        if(idx !== -1) appData.practice[idx] = { id: Number(id), ...pracData };
+      if(editId) {
+        const idx = appData.practice.findIndex(p => p.id == editId);
+        if(idx !== -1) appData.practice[idx] = { id: Number(editId), ...pracData };
       } else {
         appData.practice.push({ id: Date.now(), ...pracData });
       }
+
       saveData(); closePracticeModal(); renderPractice();
     }
+
     function deletePractice(id) {
-      if(confirm("Удалить эту запись практики?")) {
+      if(confirm("Удалить запись практики?")) {
         appData.practice = appData.practice.filter(p => p.id !== id);
         saveData(); renderPractice();
       }
     }
 
-    // 3. Выпускники
+    function printPracticeCard(id) {
+      const p = appData.practice.find(item => item.id === id);
+      if(!p) return;
+      const st = appData.students.find(s => s.id === p.studentId) || { name: "Студент" };
+
+      document.getElementById('print-content').innerHTML = `
+        <p><strong>Студент:</strong> ${st.name}</p>
+        <p><strong>Вид практики:</strong> ${p.type}</p>
+        <p><strong>ЛПУ:</strong> ${p.base}</p>
+        <p><strong>Отработано часов:</strong> ${p.hours} ч.</p>
+        <p><strong>Результат:</strong> ${p.status} (${p.grade})</p>
+        <p><strong>Замечания:</strong> ${p.notes || 'Нет'}</p>
+      `;
+      window.print();
+    }
+
+    // 3. ВЫПУСКНИКИ
     function renderGraduates() {
       const container = document.getElementById('graduates-grid');
       const yearFilter = document.getElementById('filter-grad-year').value;
@@ -982,15 +1068,23 @@
           </div>
           ${currentRole === 'teacher' ? `
             <div class="mt-3 flex justify-end gap-2 border-t pt-2">
-              <button onclick="editGraduate(${g.id})" class="text-xs text-blue-600 font-semibold hover:underline">✎ Изменить</button>
-              <button onclick="deleteGraduate(${g.id})" class="text-xs text-red-500 font-semibold hover:underline">🗑️ Удалить</button>
+              <button onclick="editGraduate(${g.id})" class="text-xs text-blue-600 font-semibold hover:underline">✏ Изменить</button>
+              <button onclick="deleteGraduate(${g.id})" class="text-xs text-red-500 font-semibold hover:underline">🗑 Удалить</button>
             </div>
           ` : ''}
         </div>
       `).join('');
     }
-    function openGraduateModal() { document.getElementById('edit-grad-id').value = ''; document.getElementById('graduate-modal').classList.remove('hidden'); }
-    function closeGraduateModal() { document.getElementById('graduate-modal').classList.add('hidden'); }
+
+    function openGraduateModal() {
+      document.getElementById('edit-grad-id').value = '';
+      document.getElementById('grad-name').value = '';
+      document.getElementById('grad-work').value = '';
+      document.getElementById('grad-red').checked = false;
+      document.getElementById('grad-modal-title').textContent = 'Добавить выпускника';
+      document.getElementById('graduate-modal').classList.remove('hidden');
+    }
+
     function editGraduate(id) {
       const g = appData.graduates.find(item => item.id === id);
       if(!g) return;
@@ -999,12 +1093,15 @@
       document.getElementById('grad-faculty').value = g.faculty;
       document.getElementById('grad-year').value = g.year;
       document.getElementById('grad-work').value = g.work || '';
-      document.getElementById('grad-red').checked = !!g.isRed;
+      document.getElementById('grad-red').checked = g.isRed || false;
+      document.getElementById('grad-modal-title').textContent = 'Редактировать выпускника';
       document.getElementById('graduate-modal').classList.remove('hidden');
     }
+
+    function closeGraduateModal() { document.getElementById('graduate-modal').classList.add('hidden'); }
     function handleSaveGraduate(e) {
       e.preventDefault();
-      const id = document.getElementById('edit-grad-id').value;
+      const editId = document.getElementById('edit-grad-id').value;
       const gradData = {
         name: document.getElementById('grad-name').value,
         faculty: document.getElementById('grad-faculty').value,
@@ -1013,22 +1110,213 @@
         isRed: document.getElementById('grad-red').checked
       };
 
-      if(id) {
-        const idx = appData.graduates.findIndex(g => g.id == id);
-        if(idx !== -1) appData.graduates[idx] = { id: Number(id), ...gradData };
+      if(editId) {
+        const idx = appData.graduates.findIndex(g => g.id == editId);
+        if(idx !== -1) appData.graduates[idx] = { id: Number(editId), ...gradData };
       } else {
         appData.graduates.push({ id: Date.now(), ...gradData });
       }
+
       saveData(); closeGraduateModal(); renderGraduates();
     }
+
     function deleteGraduate(id) {
-      if(confirm("Удалить этого выпускника из списка?")) {
+      if(confirm("Удалить карточку выпускника?")) {
         appData.graduates = appData.graduates.filter(g => g.id !== id);
         saveData(); renderGraduates();
       }
     }
 
-    // 4. Рейтинг
+    // 4. СТУДЕНТЫ
+    function renderStudents() {
+      const tbody = document.getElementById('students-tbody');
+      sortStudentsAlphabetically();
+      tbody.innerHTML = (appData.students || []).map(st => `
+        <tr class="hover:bg-slate-50">
+          <td class="p-3 font-semibold text-slate-900">${st.name}</td>
+          <td class="p-3 text-slate-600">${st.faculty} (${st.course})</td>
+          <td class="p-3 text-slate-600">${st.card || '-'}</td>
+          <td class="p-3 text-slate-600">${st.phone || '-'}</td>
+          <td class="p-3 text-slate-600"><span class="px-2 py-0.5 bg-slate-100 rounded text-xs">${st.note || '-'}</span></td>
+          <td class="p-3 text-center">
+            <button onclick="editStudent(${st.id})" class="text-blue-600 hover:text-blue-800 text-xs font-semibold mr-2">✏ Изм.</button>
+            <button onclick="deleteStudent(${st.id})" class="text-red-500 hover:text-red-700 text-xs font-semibold">🗑 Уд.</button>
+          </td>
+        </tr>`).join('');
+    }
+
+    function openStudentModal() {
+      document.getElementById('modal-student-id').value = '';
+      document.getElementById('modal-student-name').value = '';
+      document.getElementById('modal-student-card').value = '';
+      document.getElementById('modal-student-phone').value = '';
+      document.getElementById('modal-student-note').value = '';
+      document.getElementById('student-modal-title').textContent = 'Добавить студента';
+      document.getElementById('student-modal').classList.remove('hidden');
+    }
+
+    function editStudent(id) {
+      const st = appData.students.find(s => s.id === id);
+      if(!st) return;
+      document.getElementById('modal-student-id').value = st.id;
+      document.getElementById('modal-student-name').value = st.name;
+      document.getElementById('modal-student-faculty').value = st.faculty;
+      document.getElementById('modal-student-course').value = st.course;
+      document.getElementById('modal-student-card').value = st.card || '';
+      document.getElementById('modal-student-phone').value = st.phone || '';
+      document.getElementById('modal-student-note').value = st.note || '';
+      document.getElementById('student-modal-title').textContent = 'Редактировать студента';
+      document.getElementById('student-modal').classList.remove('hidden');
+    }
+
+    function closeStudentModal() { document.getElementById('student-modal').classList.add('hidden'); }
+    function handleSaveStudent(e) {
+      e.preventDefault();
+      const editId = document.getElementById('modal-student-id').value;
+      const stData = {
+        name: document.getElementById('modal-student-name').value,
+        faculty: document.getElementById('modal-student-faculty').value,
+        course: document.getElementById('modal-student-course').value,
+        card: document.getElementById('modal-student-card').value,
+        phone: document.getElementById('modal-student-phone').value,
+        note: document.getElementById('modal-student-note').value
+      };
+
+      if(editId) {
+        const idx = appData.students.findIndex(s => s.id == editId);
+        if(idx !== -1) appData.students[idx] = { id: Number(editId), ...stData };
+      } else {
+        appData.students.push({ id: Date.now(), ...stData });
+      }
+
+      saveData(); closeStudentModal(); renderStudents(); renderJournal();
+    }
+
+    function deleteStudent(id) {
+      if(confirm("Удалить студента из базы?")) {
+        appData.students = appData.students.filter(s => s.id !== id);
+        saveData(); renderStudents(); renderJournal();
+      }
+    }
+
+    // 5. БИБЛИОТЕКА И РАСПИСАНИЕ
+    function renderLibrary() {
+      const container = document.getElementById('library-grid');
+      const books = appData.books || [];
+
+      container.innerHTML = books.map(b => `
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-col justify-between">
+          <div>
+            <span class="px-2 py-0.5 bg-blue-100 text-blue-700 text-[10px] font-bold rounded">${b.category}</span>
+            <h4 class="font-bold text-slate-900 mt-2 text-sm">${b.title}</h4>
+            <p class="text-xs text-slate-500 mt-1">Автор: ${b.author}</p>
+          </div>
+          <div class="mt-4 flex gap-2">
+            <a href="${b.link || '#'}" target="_blank" class="flex-grow text-center py-1.5 bg-white border text-blue-600 font-semibold text-xs rounded-lg">Открыть</a>
+            ${currentRole === 'teacher' ? `
+              <button onclick="editBook(${b.id})" class="px-2 py-1.5 bg-slate-100 text-blue-600 font-bold text-xs rounded-lg">✏</button>
+              <button onclick="deleteBook(${b.id})" class="px-2 py-1.5 bg-slate-100 text-red-500 font-bold text-xs rounded-lg">🗑</button>
+            ` : ''}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openBookModal() {
+      document.getElementById('edit-book-id').value = '';
+      document.getElementById('book-title').value = '';
+      document.getElementById('book-author').value = '';
+      document.getElementById('book-modal').classList.remove('hidden');
+    }
+    function editBook(id) {
+      const b = appData.books.find(item => item.id === id);
+      if(!b) return;
+      document.getElementById('edit-book-id').value = b.id;
+      document.getElementById('book-title').value = b.title;
+      document.getElementById('book-author').value = b.author;
+      document.getElementById('book-category').value = b.category;
+      document.getElementById('book-link').value = b.link || '#';
+      document.getElementById('book-modal').classList.remove('hidden');
+    }
+    function closeBookModal() { document.getElementById('book-modal').classList.add('hidden'); }
+    function handleSaveBook(e) {
+      e.preventDefault();
+      const editId = document.getElementById('edit-book-id').value;
+      const bData = {
+        title: document.getElementById('book-title').value,
+        author: document.getElementById('book-author').value,
+        category: document.getElementById('book-category').value,
+        link: document.getElementById('book-link').value
+      };
+      if(editId) {
+        const idx = appData.books.findIndex(b => b.id == editId);
+        if(idx !== -1) appData.books[idx] = { id: Number(editId), ...bData };
+      } else {
+        appData.books.push({ id: Date.now(), ...bData });
+      }
+      saveData(); closeBookModal(); renderLibrary();
+    }
+    function deleteBook(id) {
+      if(confirm("Удалить материал?")) {
+        appData.books = appData.books.filter(b => b.id !== id);
+        saveData(); renderLibrary();
+      }
+    }
+
+    function renderSchedule() {
+      const container = document.getElementById('schedule-days-container');
+      const days = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
+      const sched = appData.schedule || [];
+
+      container.innerHTML = days.map(day => {
+        const dayItems = sched.filter(s => s.day === day);
+        return `
+          <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
+            <h4 class="font-bold text-slate-800 text-sm mb-3">${day}</h4>
+            <div class="space-y-2">
+              ${dayItems.length === 0 ? '<p class="text-xs text-slate-400">Нет пар</p>' : dayItems.map(it => `
+                <div class="bg-white p-3 rounded-xl border border-slate-200 flex justify-between items-center text-xs">
+                  <div>
+                    <strong class="text-slate-900 text-sm block">${it.subject}</strong>
+                    <span class="text-slate-500">${it.room || 'Аудитория не указана'}</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="px-2.5 py-1 bg-blue-50 text-blue-700 font-semibold rounded-lg">${it.time}</span>
+                    ${currentRole === 'teacher' ? `
+                      <button onclick="deleteSchedule(${it.id})" class="text-red-500 font-bold hover:underline">✕</button>
+                    ` : ''}
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    function openScheduleModal() {
+      document.getElementById('edit-sched-id').value = '';
+      document.getElementById('schedule-modal').classList.remove('hidden');
+    }
+    function closeScheduleModal() { document.getElementById('schedule-modal').classList.add('hidden'); }
+    function handleSaveSchedule(e) {
+      e.preventDefault();
+      appData.schedule.push({
+        id: Date.now(),
+        day: document.getElementById('sched-day').value,
+        subject: document.getElementById('sched-subject').value,
+        time: document.getElementById('sched-time').value,
+        room: document.getElementById('sched-room').value
+      });
+      saveData(); closeScheduleModal(); renderSchedule();
+    }
+    function deleteSchedule(id) {
+      if(confirm("Удалить занятие из расписания?")) {
+        appData.schedule = appData.schedule.filter(s => s.id !== id);
+        saveData(); renderSchedule();
+      }
+    }
+
+    // ВСПОМОГАТЕЛЬНЫЕ
     function renderRating() {
       const container = document.getElementById('rating-list');
       const students = appData.students || [];
@@ -1061,223 +1349,48 @@
       `).join('');
     }
 
-    // 5. Расписание
-    function renderSchedule() {
-      const container = document.getElementById('schedule-days-container');
-      const items = appData.schedule || [];
-
-      const days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
-      container.innerHTML = days.map(d => {
-        const dayItems = items.filter(it => it.day === d);
-        return `
-          <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
-            <h4 class="font-bold text-slate-800 text-sm mb-3">${d}</h4>
-            <div class="space-y-2">
-              ${dayItems.length === 0 ? '<p class="text-xs text-slate-400 italic">Нет занятий</p>' : dayItems.map(it => `
-                <div class="bg-white p-3 rounded-xl border border-slate-200 flex justify-between items-center text-xs">
-                  <div>
-                    <strong class="text-slate-900 text-sm block">${it.sub}</strong>
-                    <span class="text-slate-500">${it.room}</span>
-                  </div>
-                  <div class="flex items-center gap-2">
-                    <span class="px-2.5 py-1 bg-blue-50 text-blue-700 font-semibold rounded-lg">${it.time}</span>
-                    ${currentRole === 'teacher' ? `
-                      <button onclick="deleteSchedule(${it.id})" class="text-red-500 font-bold hover:underline">✕</button>
-                    ` : ''}
-                  </div>
-                </div>
-              `).join('')}
-            </div>
-          </div>`;
-      }).join('');
-    }
-    function openScheduleModal() { document.getElementById('edit-sched-id').value = ''; document.getElementById('schedule-modal').classList.remove('hidden'); }
-    function closeScheduleModal() { document.getElementById('schedule-modal').classList.add('hidden'); }
-    function handleSaveSchedule(e) {
-      e.preventDefault();
-      appData.schedule.push({
-        id: Date.now(),
-        day: document.getElementById('sched-day').value,
-        sub: document.getElementById('sched-sub').value,
-        time: document.getElementById('sched-time').value,
-        room: document.getElementById('sched-room').value
-      });
-      saveData(); closeScheduleModal(); renderSchedule();
-    }
-    function deleteSchedule(id) {
-      if(confirm("Удалить предмет из расписания?")) {
-        appData.schedule = appData.schedule.filter(s => s.id !== id);
-        saveData(); renderSchedule();
-      }
-    }
-
-    // 6. Библиотека
-    function renderLibrary() {
-      const container = document.getElementById('library-grid');
-      const books = appData.books || [];
-      container.innerHTML = books.map(b => `
-        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-col justify-between">
-          <div>
-            <span class="px-2 py-0.5 bg-blue-100 text-blue-700 text-[10px] font-bold rounded">${b.category}</span>
-            <h4 class="font-bold text-slate-900 mt-2 text-sm">${b.title}</h4>
-            <p class="text-xs text-slate-500 mt-1">Автор: ${b.author}</p>
-          </div>
-          <div class="mt-4 flex gap-2">
-            <a href="${b.link || '#'}" target="_blank" class="flex-grow text-center py-1.5 bg-white hover:bg-slate-100 border text-blue-600 font-semibold text-xs rounded-lg">Открыть</a>
-            ${currentRole === 'teacher' ? `
-              <button onclick="deleteBook(${b.id})" class="px-2 py-1.5 bg-red-50 text-red-600 font-semibold text-xs rounded-lg hover:bg-red-100">Удалить</button>
-            ` : ''}
-          </div>
-        </div>
-      `).join('');
-    }
-    function openBookModal() { document.getElementById('edit-book-id').value = ''; document.getElementById('book-modal').classList.remove('hidden'); }
-    function closeBookModal() { document.getElementById('book-modal').classList.add('hidden'); }
-    function handleSaveBook(e) {
-      e.preventDefault();
-      appData.books.push({
-        id: Date.now(),
-        title: document.getElementById('book-title').value,
-        author: document.getElementById('book-author').value,
-        category: document.getElementById('book-category').value,
-        link: document.getElementById('book-link').value
-      });
-      saveData(); closeBookModal(); renderLibrary();
-    }
-    function deleteBook(id) {
-      if(confirm("Удалить этот учебный материал?")) {
-        appData.books = appData.books.filter(b => b.id !== id);
-        saveData(); renderLibrary();
-      }
-    }
-
-    // 7. Сводка
     function renderSummary() {
       const tbody = document.getElementById('summary-tbody');
       const students = appData.students || [];
       const dates = appData.dates || [];
+      sortStudentsAlphabetically();
 
       tbody.innerHTML = students.map(st => {
         let sum = 0, count = 0, misses = 0;
-        let c5 = 0, c4 = 0, c3 = 0, c2 = 0;
+        let count5 = 0, count4 = 0, count3 = 0, count2 = 0;
+
         dates.forEach(d => {
           const val = appData.journal[`${st.id}_${d.id}`];
-          if(val === '5') c5++; if(val === '4') c4++; if(val === '3') c3++; if(val === '2') c2++;
+          if(val === '5') count5++;
+          if(val === '4') count4++;
+          if(val === '3') count3++;
+          if(val === '2') count2++;
           if(['5','4','3','2'].includes(val)) { sum += Number(val); count++; }
           if(val === 'Н') misses++;
         });
+
         const avg = count > 0 ? (sum / count).toFixed(2) : "-";
-        const status = avg >= 4.5 ? "Отлично" : avg >= 3.5 ? "Хорошо" : avg >= 3 ? "Удовлетворительно" : "Требует внимания";
+        const status = avg >= 4.5 ? "Отлично" : avg >= 3.5 ? "Хорошо" : avg >= 3 ? "Удовлетворительно" : "Аттестация не пройдена";
+
         return `
           <tr class="hover:bg-slate-50">
             <td class="p-3 font-semibold text-slate-900">${st.name}</td>
             <td class="p-3 text-slate-600">${st.faculty} (${st.course})</td>
             <td class="p-3 text-center font-bold text-blue-600 text-base">${avg}</td>
-            <td class="p-3 text-center text-xs">5: ${c5} | 4: ${c4} | 3: ${c3} | 2: ${c2}</td>
+            <td class="p-3 text-center text-xs">
+              <span class="text-emerald-600 font-bold">5: ${count5}</span> | 
+              <span class="text-blue-600 font-bold">4: ${count4}</span> | 
+              <span class="text-amber-600 font-bold">3: ${count3}</span> | 
+              <span class="text-red-600 font-bold">2: ${count2}</span>
+            </td>
             <td class="p-3 text-center font-bold text-slate-700">${misses} н.</td>
-            <td class="p-3 text-center font-semibold text-xs"><span class="px-2.5 py-1 rounded-full ${avg >= 3 ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}">${status}</span></td>
+            <td class="p-3 text-center font-semibold text-xs">
+              <span class="px-2.5 py-1 rounded-full ${avg >= 3 ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}">${status}</span>
+            </td>
           </tr>`;
       }).join('');
     }
 
-    // 8. Студенты
-    function renderStudents() {
-      const tbody = document.getElementById('students-tbody');
-      tbody.innerHTML = (appData.students || []).map(st => `
-        <tr class="hover:bg-slate-50">
-          <td class="p-3 font-semibold text-slate-900">${st.name}</td>
-          <td class="p-3 text-slate-600">${st.faculty} (${st.course})</td>
-          <td class="p-3 text-slate-600">${st.card || '-'}</td>
-          <td class="p-3 text-slate-600">${st.phone || '-'}</td>
-          <td class="p-3 text-slate-600"><span class="px-2 py-0.5 bg-slate-100 rounded text-xs">${st.note || '-'}</span></td>
-          <td class="p-3 text-center">
-            <button onclick="editStudent(${st.id})" class="text-blue-600 font-semibold text-xs mr-2 hover:underline">✎ Изм.</button>
-            <button onclick="deleteStudent(${st.id})" class="text-red-500 font-semibold text-xs hover:underline">🗑️ Удал.</button>
-          </td>
-        </tr>`).join('');
-    }
-    function openStudentModal() { document.getElementById('modal-student-id').value = ''; document.getElementById('student-modal').classList.remove('hidden'); }
-    function closeStudentModal() { document.getElementById('student-modal').classList.add('hidden'); }
-    function editStudent(id) {
-      const st = appData.students.find(s => s.id === id);
-      if(!st) return;
-      document.getElementById('modal-student-id').value = st.id;
-      document.getElementById('modal-student-name').value = st.name;
-      document.getElementById('modal-student-faculty').value = st.faculty;
-      document.getElementById('modal-student-course').value = st.course;
-      document.getElementById('modal-student-card').value = st.card || '';
-      document.getElementById('modal-student-phone').value = st.phone || '';
-      document.getElementById('modal-student-note').value = st.note || '';
-      document.getElementById('student-modal').classList.remove('hidden');
-    }
-    function handleSaveStudent(e) {
-      e.preventDefault();
-      const id = document.getElementById('modal-student-id').value;
-      const stData = {
-        name: document.getElementById('modal-student-name').value,
-        faculty: document.getElementById('modal-student-faculty').value,
-        course: document.getElementById('modal-student-course').value,
-        card: document.getElementById('modal-student-card').value,
-        phone: document.getElementById('modal-student-phone').value,
-        note: document.getElementById('modal-student-note').value
-      };
-
-      if(id) {
-        const idx = appData.students.findIndex(s => s.id == id);
-        if(idx !== -1) appData.students[idx] = { id: Number(id), ...stData };
-      } else {
-        appData.students.push({ id: Date.now(), ...stData });
-      }
-      saveData(); closeStudentModal(); renderStudents(); renderJournal();
-    }
-    function deleteStudent(id) {
-      if(confirm("Удалить этого студента из системы?")) {
-        appData.students = appData.students.filter(s => s.id !== id);
-        saveData(); renderStudents(); renderJournal();
-      }
-    }
-
-    // 9. Справочники
-    function renderSettings() {
-      renderDictList('faculties', 'list-faculties');
-      renderDictList('courses', 'list-courses');
-      renderDictList('subjects', 'list-subjects');
-    }
-    function renderDictList(key, elementId) {
-      const el = document.getElementById(elementId);
-      el.innerHTML = (appData[key] || []).map((item, idx) => `
-        <li class="flex justify-between items-center bg-white p-2 rounded-lg border border-slate-200 text-sm">
-          <span>${item}</span>
-          <div class="flex gap-1">
-            <button onclick="editDictionaryItem('${key}', ${idx})" title="Изменить" class="text-blue-600 font-bold px-1.5">✎</button>
-            <button onclick="removeDictionaryItem('${key}', ${idx})" title="Удалить" class="text-red-500 font-bold px-1.5">✕</button>
-          </div>
-        </li>`).join('');
-    }
-    function addDictionary(key, inputId) {
-      const val = document.getElementById(inputId).value.trim();
-      if(val && !appData[key].includes(val)) {
-        appData[key].push(val);
-        document.getElementById(inputId).value = '';
-        saveData(); initSelects(); renderSettings();
-      }
-    }
-    function editDictionaryItem(key, idx) {
-      const oldVal = appData[key][idx];
-      const newVal = prompt("Редактировать наименование:", oldVal);
-      if(newVal && newVal.trim() !== "") {
-        appData[key][idx] = newVal.trim();
-        saveData(); initSelects(); renderSettings(); renderJournal();
-      }
-    }
-    function removeDictionaryItem(key, idx) {
-      if(confirm("Удалить элемент из справочника?")) {
-        appData[key].splice(idx, 1);
-        saveData(); initSelects(); renderSettings();
-      }
-    }
-
-    // Объявления
     function renderAnnouncement() {
       document.getElementById('announcement-title').textContent = appData.announcement?.title || "";
       document.getElementById('announcement-body').textContent = appData.announcement?.body || "";
@@ -1291,13 +1404,39 @@
       }
     }
 
-    // Экспорт CSV
+    function renderSettings() {
+      renderDictList('faculties', 'list-faculties');
+      renderDictList('courses', 'list-courses');
+      renderDictList('subjects', 'list-subjects');
+    }
+    function renderDictList(key, elementId) {
+      const el = document.getElementById(elementId);
+      el.innerHTML = (appData[key] || []).map((item, idx) => `
+        <li class="flex justify-between items-center bg-white p-2 rounded-lg border text-sm">
+          <span>${item}</span>
+          <button onclick="removeDictionary('${key}', ${idx})" class="text-red-500 font-bold px-2">✕</button>
+        </li>`).join('');
+    }
+    function addDictionary(key, inputId) {
+      const val = document.getElementById(inputId).value.trim();
+      if(val && !appData[key].includes(val)) {
+        appData[key].push(val);
+        document.getElementById(inputId).value = '';
+        saveData(); initSelects(); renderSettings();
+      }
+    }
+    function removeDictionary(key, idx) {
+      appData[key].splice(idx, 1);
+      saveData(); initSelects(); renderSettings();
+    }
+
     function exportJournalCSV() {
       const selFac = document.getElementById('filter-faculty').value;
       const selCourse = document.getElementById('filter-course').value;
       const selSub = document.getElementById('filter-subject').value;
 
       let students = (appData.students || []).filter(s => s.faculty === selFac && s.course === selCourse);
+      students.sort((a,b) => a.name.localeCompare(b.name, 'ru'));
       let dates = (appData.dates || []).filter(d => d.subject === selSub);
 
       let csv = `\uFEFFДисциплина: ${selSub};Факультет: ${selFac};Курс: ${selCourse}\n\nСтудент;`;
