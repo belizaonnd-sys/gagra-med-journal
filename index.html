@@ -249,13 +249,11 @@
           <div class="lg:col-span-2 space-y-4" id="schedule-days-container"></div>
           
           <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 h-fit">
-            <h4 class="font-bold text-slate-800 text-sm mb-4">🔔 Расписание звонков</h4>
-            <div class="space-y-2 text-sm">
-              <div class="flex justify-between p-2 bg-white rounded-lg border border-slate-200"><span>1 пара:</span> <strong class="text-blue-600">08:30 – 10:00</strong></div>
-              <div class="flex justify-between p-2 bg-white rounded-lg border border-slate-200"><span>2 пара:</span> <strong class="text-blue-600">10:10 – 11:40</strong></div>
-              <div class="flex justify-between p-2 bg-white rounded-lg border border-slate-200"><span>3 пара:</span> <strong class="text-blue-600">12:10 – 13:40</strong></div>
-              <div class="flex justify-between p-2 bg-white rounded-lg border border-slate-200"><span>4 пара:</span> <strong class="text-blue-600">13:50 – 15:20</strong></div>
+            <div class="flex justify-between items-center mb-4">
+              <h4 class="font-bold text-slate-800 text-sm">🔔 Расписание звонков</h4>
+              <button class="hidden teacher-col text-xs text-blue-600 font-semibold hover:underline" onclick="openBellsModal()">✏ Изменить</button>
             </div>
+            <div id="bells-container" class="space-y-2 text-sm"></div>
           </div>
         </div>
       </div>
@@ -456,7 +454,7 @@
         <input type="hidden" id="edit-grad-id" value="">
         <div class="mb-3">
           <label class="block text-xs font-semibold text-slate-500 mb-1">ФИО Выпускника</label>
-          <input type="text" id="grad-name" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm outline-none" required placeholder="Аршба Илона Вадимовна">
+          <input type="text" id="grad-name" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm outline-none" required placeholder="Аршба Илона Вадимовna">
         </div>
         <div class="grid grid-cols-2 gap-3 mb-3">
           <div>
@@ -519,7 +517,7 @@
     </div>
   </div>
 
-  <!-- Расписание -->
+  <!-- Расписание (Занятие) -->
   <div id="schedule-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
     <div class="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl">
       <h3 id="schedule-modal-title" class="font-bold text-lg text-slate-900 mb-4">Занятие в расписание</h3>
@@ -553,6 +551,37 @@
         <div class="flex justify-end gap-2">
           <button type="button" class="px-4 py-2 border border-slate-200 hover:bg-slate-100 rounded-lg text-sm font-medium" onclick="closeScheduleModal()">Отмена</button>
           <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium">Сохранить</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Расписание звонков -->
+  <div id="bells-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl">
+      <h3 class="font-bold text-lg text-slate-900 mb-4">Редактирование расписания звонков</h3>
+      <form onsubmit="handleSaveBells(event)">
+        <div class="space-y-3 mb-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-500 mb-1">1 пара</label>
+            <input type="text" id="bell-1" class="w-full px-3 py-2 border rounded-lg text-sm" required>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-500 mb-1">2 пара</label>
+            <input type="text" id="bell-2" class="w-full px-3 py-2 border rounded-lg text-sm" required>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-500 mb-1">3 пара</label>
+            <input type="text" id="bell-3" class="w-full px-3 py-2 border rounded-lg text-sm" required>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-500 mb-1">4 пара</label>
+            <input type="text" id="bell-4" class="w-full px-3 py-2 border rounded-lg text-sm" required>
+          </div>
+        </div>
+        <div class="flex justify-end gap-2">
+          <button type="button" class="px-4 py-2 border rounded-lg text-sm" onclick="closeBellsModal()">Отмена</button>
+          <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm">Сохранить</button>
         </div>
       </form>
     </div>
@@ -680,6 +709,12 @@
       ],
       schedule: [
         { id: 1, day: 'Понедельник', subject: 'Анатомия и физиология', time: '08:30 - 10:00', room: 'Каб. 102' }
+      ],
+      bells: [
+        { pair: "1 пара", time: "08:30 – 10:00" },
+        { pair: "2 пара", time: "10:10 – 11:40" },
+        { pair: "3 пара", time: "12:10 – 13:40" },
+        { pair: "4 пара", time: "13:50 – 15:20" }
       ]
     };
 
@@ -727,6 +762,12 @@
         if(!appData.faculties || !Array.isArray(appData.faculties) || appData.faculties.length === 0) appData.faculties = DEFAULT_FACULTIES;
         if(!appData.courses || !Array.isArray(appData.courses) || appData.courses.length === 0) appData.courses = DEFAULT_COURSES;
         if(!appData.subjects || !Array.isArray(appData.subjects) || appData.subjects.length === 0) appData.subjects = DEFAULT_SUBJECTS;
+        if(!appData.bells) appData.bells = [
+          { pair: "1 пара", time: "08:30 – 10:00" },
+          { pair: "2 пара", time: "10:10 – 11:40" },
+          { pair: "3 пара", time: "12:10 – 13:40" },
+          { pair: "4 пара", time: "13:50 – 15:20" }
+        ];
         
         if(!appData.graduates) appData.graduates = [];
         if(!appData.books) appData.books = [];
@@ -851,7 +892,6 @@
       }
     }
 
-    // Принудительное связывание с глобальным объектом во избежание ошибок
     window.selectRole = selectRole;
     window.openAuthModal = openAuthModal;
     window.closeAuthModal = closeAuthModal;
@@ -1323,6 +1363,7 @@
                   <div class="flex items-center gap-2">
                     <span class="px-2.5 py-1 bg-blue-50 text-blue-700 font-semibold rounded-lg">${it.time}</span>
                     ${currentRole === 'teacher' ? `
+                      <button onclick="editSchedule(${it.id})" class="text-blue-600 font-bold hover:underline">✏</button>
                       <button onclick="deleteSchedule(${it.id})" class="text-red-500 font-bold hover:underline">✕</button>
                     ` : ''}
                   </div>
@@ -1331,29 +1372,88 @@
             </div>
           </div>`;
       }).join('');
+
+      // Рендер звонков
+      const bellsContainer = document.getElementById('bells-container');
+      if(bellsContainer && appData.bells) {
+        bellsContainer.innerHTML = appData.bells.map(b => `
+          <div class="flex justify-between p-2 bg-white rounded-lg border border-slate-200">
+            <span>${b.pair}:</span> <strong class="text-blue-600">${b.time}</strong>
+          </div>
+        `).join('');
+      }
     }
 
     function openScheduleModal() {
       document.getElementById('edit-sched-id').value = '';
+      document.getElementById('sched-time').value = '08:30 - 10:00';
+      document.getElementById('sched-room').value = '';
+      document.getElementById('schedule-modal-title').textContent = 'Занятие в расписание';
       document.getElementById('schedule-modal').classList.remove('hidden');
     }
+
+    function editSchedule(id) {
+      const item = appData.schedule.find(s => s.id === id);
+      if(!item) return;
+      document.getElementById('edit-sched-id').value = item.id;
+      document.getElementById('sched-day').value = item.day;
+      document.getElementById('sched-subject').value = item.subject;
+      document.getElementById('sched-time').value = item.time;
+      document.getElementById('sched-room').value = item.room || '';
+      document.getElementById('schedule-modal-title').textContent = 'Редактировать занятие';
+      document.getElementById('schedule-modal').classList.remove('hidden');
+    }
+
     function closeScheduleModal() { document.getElementById('schedule-modal').classList.add('hidden'); }
+
     function handleSaveSchedule(e) {
       e.preventDefault();
-      appData.schedule.push({
-        id: Date.now(),
+      const editId = document.getElementById('edit-sched-id').value;
+      const sData = {
         day: document.getElementById('sched-day').value,
         subject: document.getElementById('sched-subject').value,
         time: document.getElementById('sched-time').value,
         room: document.getElementById('sched-room').value
-      });
+      };
+
+      if(editId) {
+        const idx = appData.schedule.findIndex(s => s.id == editId);
+        if(idx !== -1) appData.schedule[idx] = { id: Number(editId), ...sData };
+      } else {
+        appData.schedule.push({ id: Date.now(), ...sData });
+      }
+
       saveData(); closeScheduleModal(); renderSchedule();
     }
+
     function deleteSchedule(id) {
       if(confirm("Удалить занятие из расписания?")) {
         appData.schedule = appData.schedule.filter(s => s.id !== id);
         saveData(); renderSchedule();
       }
+    }
+
+    function openBellsModal() {
+      if(appData.bells && appData.bells.length >= 4) {
+        document.getElementById('bell-1').value = appData.bells[0].time;
+        document.getElementById('bell-2').value = appData.bells[1].time;
+        document.getElementById('bell-3').value = appData.bells[2].time;
+        document.getElementById('bell-4').value = appData.bells[3].time;
+      }
+      document.getElementById('bells-modal').classList.remove('hidden');
+    }
+
+    function closeBellsModal() { document.getElementById('bells-modal').classList.add('hidden'); }
+
+    function handleSaveBells(e) {
+      e.preventDefault();
+      appData.bells = [
+        { pair: "1 пара", time: document.getElementById('bell-1').value },
+        { pair: "2 пара", time: document.getElementById('bell-2').value },
+        { pair: "3 пара", time: document.getElementById('bell-3').value },
+        { pair: "4 пара", time: document.getElementById('bell-4').value }
+      ];
+      saveData(); closeBellsModal(); renderSchedule();
     }
 
     // ВСПОМОГАТЕЛЬНЫЕ
