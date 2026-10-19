@@ -41,11 +41,11 @@
       <p class="text-slate-500 mb-8 text-sm">Система учёта успеваемости, практики, расписания и выпускников</p>
       
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <button class="p-6 border border-slate-200 hover:border-blue-500 hover:bg-blue-50/50 rounded-xl transition text-center group" onclick="selectRole('student')">
+        <button type="button" class="p-6 border border-slate-200 hover:border-blue-500 hover:bg-blue-50/50 rounded-xl transition text-center group cursor-pointer" onclick="window.selectRole('student')">
           <div class="font-semibold text-slate-800 group-hover:text-blue-600 text-lg mb-1">Студент / Гость</div>
           <span class="text-xs text-slate-500">Просмотр успеваемости, рейтинга, практики и материалов</span>
         </button>
-        <button class="p-6 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition text-center shadow-md shadow-blue-500/20 group" onclick="openAuthModal()">
+        <button type="button" class="p-6 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition text-center shadow-md shadow-blue-500/20 group cursor-pointer" onclick="window.openAuthModal()">
           <div class="font-semibold text-lg mb-1">Преподаватель</div>
           <span class="text-xs text-blue-100">Полное управление, выставление оценок и редактирование</span>
         </button>
@@ -85,15 +85,15 @@
 
       <!-- Вкладки навигации -->
       <div class="flex gap-2 border-b border-slate-200 pb-3 overflow-x-auto">
-        <button class="px-4 py-2 bg-blue-600 text-white font-medium text-sm rounded-lg shadow-sm whitespace-nowrap tab-btn" onclick="switchTab('journal')">📖 Журнал успеваемости</button>
-        <button class="px-4 py-2 bg-white text-slate-600 hover:bg-slate-100 font-medium text-sm rounded-lg border border-slate-200 whitespace-nowrap tab-btn" onclick="switchTab('practice')">🏥 Практика</button>
-        <button class="px-4 py-2 bg-white text-slate-600 hover:bg-slate-100 font-medium text-sm rounded-lg border border-slate-200 whitespace-nowrap tab-btn" onclick="switchTab('graduates')">🎓 Выпускники</button>
-        <button class="px-4 py-2 bg-white text-slate-600 hover:bg-slate-100 font-medium text-sm rounded-lg border border-slate-200 whitespace-nowrap tab-btn" onclick="switchTab('rating')">🏆 Рейтинг ТОП-10</button>
-        <button class="px-4 py-2 bg-white text-slate-600 hover:bg-slate-100 font-medium text-sm rounded-lg border border-slate-200 whitespace-nowrap tab-btn" onclick="switchTab('schedule')">📅 Расписание</button>
-        <button class="px-4 py-2 bg-white text-slate-600 hover:bg-slate-100 font-medium text-sm rounded-lg border border-slate-200 whitespace-nowrap tab-btn" onclick="switchTab('library')">📚 Библиотека</button>
-        <button class="px-4 py-2 bg-white text-slate-600 hover:bg-slate-100 font-medium text-sm rounded-lg border border-slate-200 whitespace-nowrap tab-btn" onclick="switchTab('summary')">📊 Итоговая сводка</button>
-        <button class="hidden teacher-col px-4 py-2 bg-amber-50 text-amber-800 hover:bg-amber-100 font-medium text-sm rounded-lg border border-amber-200 whitespace-nowrap tab-btn" onclick="switchTab('students')">👥 Студенты</button>
-        <button class="hidden teacher-col px-4 py-2 bg-slate-100 text-slate-700 hover:bg-slate-200 font-medium text-sm rounded-lg border border-slate-200 whitespace-nowrap tab-btn" onclick="switchTab('settings')">⚙ Справочники</button>
+        <button class="px-4 py-2 bg-blue-600 text-white font-medium text-sm rounded-lg shadow-sm whitespace-nowrap tab-btn" onclick="switchTab('journal', event)">📖 Журнал успеваемости</button>
+        <button class="px-4 py-2 bg-white text-slate-600 hover:bg-slate-100 font-medium text-sm rounded-lg border border-slate-200 whitespace-nowrap tab-btn" onclick="switchTab('practice', event)">🏥 Практика</button>
+        <button class="px-4 py-2 bg-white text-slate-600 hover:bg-slate-100 font-medium text-sm rounded-lg border border-slate-200 whitespace-nowrap tab-btn" onclick="switchTab('graduates', event)">🎓 Выпускники</button>
+        <button class="px-4 py-2 bg-white text-slate-600 hover:bg-slate-100 font-medium text-sm rounded-lg border border-slate-200 whitespace-nowrap tab-btn" onclick="switchTab('rating', event)">🏆 Рейтинг ТОП-10</button>
+        <button class="px-4 py-2 bg-white text-slate-600 hover:bg-slate-100 font-medium text-sm rounded-lg border border-slate-200 whitespace-nowrap tab-btn" onclick="switchTab('schedule', event)">📅 Расписание</button>
+        <button class="px-4 py-2 bg-white text-slate-600 hover:bg-slate-100 font-medium text-sm rounded-lg border border-slate-200 whitespace-nowrap tab-btn" onclick="switchTab('library', event)">📚 Библиотека</button>
+        <button class="px-4 py-2 bg-white text-slate-600 hover:bg-slate-100 font-medium text-sm rounded-lg border border-slate-200 whitespace-nowrap tab-btn" onclick="switchTab('summary', event)">📊 Итоговая сводка</button>
+        <button class="hidden teacher-col px-4 py-2 bg-amber-50 text-amber-800 hover:bg-amber-100 font-medium text-sm rounded-lg border border-amber-200 whitespace-nowrap tab-btn" onclick="switchTab('students', event)">👥 Студенты</button>
+        <button class="hidden teacher-col px-4 py-2 bg-slate-100 text-slate-700 hover:bg-slate-200 font-medium text-sm rounded-lg border border-slate-200 whitespace-nowrap tab-btn" onclick="switchTab('settings', event)">⚙ Справочники</button>
       </div>
 
       <!-- Вкладка 1: Журнал успеваемости -->
@@ -102,15 +102,15 @@
           <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto">
             <div>
               <label class="block text-xs font-semibold text-slate-500 mb-1">Факультет</label>
-              <select id="filter-faculty" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm font-medium outline-none cursor-pointer" onchange="renderJournal()"></select>
+              <select id="filter-faculty" class="min-w-[160px] px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm font-medium outline-none cursor-pointer" onchange="renderJournal()"></select>
             </div>
             <div>
               <label class="block text-xs font-semibold text-slate-500 mb-1">Курс</label>
-              <select id="filter-course" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm font-medium outline-none cursor-pointer" onchange="renderJournal()"></select>
+              <select id="filter-course" class="min-w-[120px] px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm font-medium outline-none cursor-pointer" onchange="renderJournal()"></select>
             </div>
             <div>
               <label class="block text-xs font-semibold text-slate-500 mb-1">Дисциплина</label>
-              <select id="filter-subject" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm font-medium outline-none cursor-pointer" onchange="renderJournal()"></select>
+              <select id="filter-subject" class="min-w-[180px] px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm font-medium outline-none cursor-pointer" onchange="renderJournal()"></select>
             </div>
             <div>
               <label class="block text-xs font-semibold text-slate-500 mb-1">Поиск</label>
@@ -360,6 +360,24 @@
 
   <!-- Модальные окна -->
 
+  <!-- Авторизация -->
+  <div id="auth-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-2xl p-6 w-full max-w-sm shadow-xl">
+      <h3 class="font-bold text-lg text-slate-900 mb-4">Вход преподавателя</h3>
+      <form onsubmit="window.handleAuth(event)">
+        <div class="mb-4">
+          <label class="block text-xs font-semibold text-slate-500 mb-1">Пароль доступа</label>
+          <input type="password" id="password-input" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm outline-none" placeholder="Пароль" required>
+          <p id="auth-error" class="text-red-500 text-xs mt-1 hidden">Неверный пароль!</p>
+        </div>
+        <div class="flex justify-end gap-2">
+          <button type="button" class="px-4 py-2 border rounded-lg text-sm" onclick="window.closeAuthModal()">Отмена</button>
+          <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium">Войти</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- Практика -->
   <div id="practice-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
     <div class="bg-white rounded-2xl p-6 w-full max-w-lg shadow-xl max-h-[90vh] overflow-y-auto">
@@ -540,24 +558,6 @@
     </div>
   </div>
 
-  <!-- Вход, Дата, Студент -->
-  <div id="auth-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
-    <div class="bg-white rounded-2xl p-6 w-full max-w-sm shadow-xl">
-      <h3 class="font-bold text-lg text-slate-900 mb-4">Вход преподавателя</h3>
-      <form onsubmit="handleAuth(event)">
-        <div class="mb-4">
-          <label class="block text-xs font-semibold text-slate-500 mb-1">Пароль доступа</label>
-          <input type="password" id="password-input" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm outline-none" placeholder="Пароль" required>
-          <p id="auth-error" class="text-red-500 text-xs mt-1 hidden">Неверный пароль!</p>
-        </div>
-        <div class="flex justify-end gap-2">
-          <button type="button" class="px-4 py-2 border rounded-lg text-sm" onclick="closeAuthModal()">Отмена</button>
-          <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium">Войти</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
   <div id="date-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
     <div class="bg-white rounded-2xl p-6 w-full max-w-sm shadow-xl">
       <h3 id="date-modal-title" class="font-bold text-lg mb-4">Занятие / Дата</h3>
@@ -654,11 +654,16 @@
     const TEACHER_PASSWORD = "GagraMed123";
 
     let currentRole = 'guest';
+    
+    const DEFAULT_FACULTIES = ["Сестринское дело", "Лечебное дело", "Акушерское дело", "Фармация"];
+    const DEFAULT_COURSES = ["1 курс", "2 курс", "3 курс", "4 курс"];
+    const DEFAULT_SUBJECTS = ["Анатомия и физиология", "Фармакология", "Основы сестринского дела", "Терапия", "Хирургия", "Абхазский язык"];
+
     let appData = {
       announcement: { title: "Важное объявление", body: "Приветствуем студентов и преподавателей на портале ГМУ!" },
-      faculties: ["Сестринское дело", "Лечебное дело", "Акушерское дело", "Фармация"],
-      courses: ["1 курс", "2 курс", "3 курс", "4 курс"],
-      subjects: ["Анатомия и физиология", "Фармакология", "Основы сестринского дела", "Терапия", "Хирургия"],
+      faculties: DEFAULT_FACULTIES,
+      courses: DEFAULT_COURSES,
+      subjects: DEFAULT_SUBJECTS,
       grades: ["5", "4", "3", "2", "Н", "Зачет"],
       students: [
         { id: 1, name: "Ажиба Аида", faculty: "Сестринское дело", course: "1 курс", card: "1012", phone: "+7 (940) 123-45-67", note: "Староста" },
@@ -712,13 +717,22 @@
       }
     }
 
+    initSelects();
+
     db.collection("gagramed").doc("main").onSnapshot((doc) => {
       if (doc.exists) {
-        appData = doc.data();
+        const data = doc.data();
+        appData = data;
+        
+        if(!appData.faculties || !Array.isArray(appData.faculties) || appData.faculties.length === 0) appData.faculties = DEFAULT_FACULTIES;
+        if(!appData.courses || !Array.isArray(appData.courses) || appData.courses.length === 0) appData.courses = DEFAULT_COURSES;
+        if(!appData.subjects || !Array.isArray(appData.subjects) || appData.subjects.length === 0) appData.subjects = DEFAULT_SUBJECTS;
+        
         if(!appData.graduates) appData.graduates = [];
         if(!appData.books) appData.books = [];
         if(!appData.schedule) appData.schedule = [];
         if(!appData.practice) appData.practice = [];
+        
         sortStudentsAlphabetically();
         initSelects();
         renderAnnouncement();
@@ -742,9 +756,9 @@
     }
 
     function initSelects() {
-      const facs = appData.faculties || [];
-      const crs = appData.courses || [];
-      const subs = appData.subjects || [];
+      const facs = (appData.faculties && appData.faculties.length > 0) ? appData.faculties : DEFAULT_FACULTIES;
+      const crs = (appData.courses && appData.courses.length > 0) ? appData.courses : DEFAULT_COURSES;
+      const subs = (appData.subjects && appData.subjects.length > 0) ? appData.subjects : DEFAULT_SUBJECTS;
 
       ['filter-faculty', 'modal-student-faculty', 'grad-faculty'].forEach(id => {
         const el = document.getElementById(id);
@@ -807,28 +821,43 @@
       renderStudents();
     }
 
-    function openAuthModal() { document.getElementById('auth-modal').classList.remove('hidden'); }
+    function openAuthModal() { 
+      document.getElementById('auth-error').classList.add('hidden');
+      document.getElementById('password-input').value = '';
+      document.getElementById('auth-modal').classList.remove('hidden'); 
+    }
     function closeAuthModal() { document.getElementById('auth-modal').classList.add('hidden'); }
     function handleAuth(e) {
       e.preventDefault();
       if (document.getElementById('password-input').value === TEACHER_PASSWORD) {
-        closeAuthModal(); selectRole('teacher');
+        closeAuthModal(); 
+        selectRole('teacher');
       } else {
         document.getElementById('auth-error').classList.remove('hidden');
       }
     }
     function logout() { showLanding(); }
 
-    function switchTab(tabName) {
+    function switchTab(tabName, evt) {
       document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
       document.getElementById(`tab-${tabName}`).classList.remove('hidden');
       document.querySelectorAll('.tab-btn').forEach(b => {
         b.classList.remove('bg-blue-600', 'text-white');
         b.classList.add('bg-white', 'text-slate-600');
       });
-      event.currentTarget.classList.remove('bg-white', 'text-slate-600');
-      event.currentTarget.classList.add('bg-blue-600', 'text-white');
+      if(evt && evt.currentTarget) {
+        evt.currentTarget.classList.remove('bg-white', 'text-slate-600');
+        evt.currentTarget.classList.add('bg-blue-600', 'text-white');
+      }
     }
+
+    // Принудительное связывание с глобальным объектом во избежание ошибок
+    window.selectRole = selectRole;
+    window.openAuthModal = openAuthModal;
+    window.closeAuthModal = closeAuthModal;
+    window.handleAuth = handleAuth;
+    window.logout = logout;
+    window.switchTab = switchTab;
 
     function pickRandomStudent() {
       const selFac = document.getElementById('filter-faculty').value;
@@ -845,10 +874,14 @@
 
     // 1. ЖУРНАЛ
     function renderJournal() {
-      const selFac = document.getElementById('filter-faculty').value;
-      const selCourse = document.getElementById('filter-course').value;
-      const selSub = document.getElementById('filter-subject').value;
-      const searchVal = (document.getElementById('search-student-journal').value || '').toLowerCase();
+      const selFacEl = document.getElementById('filter-faculty');
+      const selCourseEl = document.getElementById('filter-course');
+      const selSubEl = document.getElementById('filter-subject');
+
+      const selFac = selFacEl ? selFacEl.value : "";
+      const selCourse = selCourseEl ? selCourseEl.value : "";
+      const selSub = selSubEl ? selSubEl.value : "";
+      const searchVal = (document.getElementById('search-student-journal')?.value || '').toLowerCase();
 
       let students = (appData.students || []).filter(s => s.faculty === selFac && s.course === selCourse);
       students.sort((a,b) => a.name.localeCompare(b.name, 'ru'));
@@ -871,9 +904,11 @@
           </th>`;
       });
       htmlHead += `<th class="p-3 text-center bg-slate-200 font-bold min-w-[80px]">Ср. балл</th>`;
-      headerRow.innerHTML = htmlHead;
+      if(headerRow) headerRow.innerHTML = htmlHead;
 
       const bodyRows = document.getElementById('journal-body-rows');
+      if(!bodyRows) return;
+
       if(students.length === 0) {
         bodyRows.innerHTML = `<tr><td colspan="${dates.length + 2}" class="p-6 text-center text-slate-400">Нет студентов в группе</td></tr>`;
         return;
@@ -930,6 +965,7 @@
     // 2. ПРАКТИКА
     function renderPractice() {
       const tbody = document.getElementById('practice-tbody');
+      if(!tbody) return;
       const filterType = document.getElementById('filter-prac-type').value;
       const filterStatus = document.getElementById('filter-prac-status').value;
       const searchVal = (document.getElementById('search-prac').value || '').toLowerCase();
@@ -1003,4 +1039,476 @@
         base: document.getElementById('prac-base').value,
         mentorLpu: document.getElementById('prac-mentor-lpu').value,
         mentorCollege: document.getElementById('prac-mentor-college').value,
-        status: document.getElementById('prac-status
+        status: document.getElementById('prac-status').value,
+        grade: document.getElementById('prac-grade').value,
+        notes: document.getElementById('prac-notes').value
+      };
+
+      if(editId) {
+        const idx = appData.practice.findIndex(p => p.id == editId);
+        if(idx !== -1) appData.practice[idx] = { id: Number(editId), ...pracData };
+      } else {
+        appData.practice.push({ id: Date.now(), ...pracData });
+      }
+
+      saveData(); closePracticeModal(); renderPractice();
+    }
+
+    function deletePractice(id) {
+      if(confirm("Удалить запись практики?")) {
+        appData.practice = appData.practice.filter(p => p.id !== id);
+        saveData(); renderPractice();
+      }
+    }
+
+    function printPracticeCard(id) {
+      const p = appData.practice.find(item => item.id === id);
+      if(!p) return;
+      const st = appData.students.find(s => s.id === p.studentId) || { name: "Студент" };
+
+      document.getElementById('print-content').innerHTML = `
+        <p><strong>Студент:</strong> ${st.name}</p>
+        <p><strong>Вид практики:</strong> ${p.type}</p>
+        <p><strong>ЛПУ:</strong> ${p.base}</p>
+        <p><strong>Отработано часов:</strong> ${p.hours} ч.</p>
+        <p><strong>Результат:</strong> ${p.status} (${p.grade})</p>
+        <p><strong>Замечания:</strong> ${p.notes || 'Нет'}</p>
+      `;
+      window.print();
+    }
+
+    // 3. ВЫПУСКНИКИ
+    function renderGraduates() {
+      const container = document.getElementById('graduates-grid');
+      if(!container) return;
+      const yearFilter = document.getElementById('filter-grad-year').value;
+      const facFilter = document.getElementById('filter-grad-fac').value;
+      const searchVal = (document.getElementById('search-grad').value || '').toLowerCase();
+
+      let grads = appData.graduates || [];
+      if(yearFilter !== 'ALL') grads = grads.filter(g => g.year === yearFilter);
+      if(facFilter !== 'ALL') grads = grads.filter(g => g.faculty === facFilter);
+      if(searchVal) grads = grads.filter(g => g.name.toLowerCase().includes(searchVal) || (g.work || '').toLowerCase().includes(searchVal));
+
+      if(grads.length === 0) {
+        container.innerHTML = `<div class="col-span-full text-center py-8 text-slate-400">Выпускники не найдены</div>`;
+        return;
+      }
+
+      container.innerHTML = grads.map(g => `
+        <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl relative hover:shadow-md transition">
+          ${g.isRed ? '<span class="absolute top-3 right-3 text-lg" title="Красный диплом">🎖️</span>' : ''}
+          <h4 class="font-bold text-slate-900">${g.name}</h4>
+          <p class="text-xs text-blue-600 font-semibold">${g.faculty} • Выпуск ${g.year} г.</p>
+          <div class="mt-3 text-xs text-slate-600 bg-white p-2 rounded-lg border border-slate-100">
+            <strong>Место работы:</strong> ${g.work || 'Не указано'}
+          </div>
+          ${currentRole === 'teacher' ? `
+            <div class="mt-3 flex justify-end gap-2 border-t pt-2">
+              <button onclick="editGraduate(${g.id})" class="text-xs text-blue-600 font-semibold hover:underline">✏ Изменить</button>
+              <button onclick="deleteGraduate(${g.id})" class="text-xs text-red-500 font-semibold hover:underline">🗑 Удалить</button>
+            </div>
+          ` : ''}
+        </div>
+      `).join('');
+    }
+
+    function openGraduateModal() {
+      document.getElementById('edit-grad-id').value = '';
+      document.getElementById('grad-name').value = '';
+      document.getElementById('grad-work').value = '';
+      document.getElementById('grad-red').checked = false;
+      document.getElementById('grad-modal-title').textContent = 'Добавить выпускника';
+      document.getElementById('graduate-modal').classList.remove('hidden');
+    }
+
+    function editGraduate(id) {
+      const g = appData.graduates.find(item => item.id === id);
+      if(!g) return;
+      document.getElementById('edit-grad-id').value = g.id;
+      document.getElementById('grad-name').value = g.name;
+      document.getElementById('grad-faculty').value = g.faculty;
+      document.getElementById('grad-year').value = g.year;
+      document.getElementById('grad-work').value = g.work || '';
+      document.getElementById('grad-red').checked = g.isRed || false;
+      document.getElementById('grad-modal-title').textContent = 'Редактировать выпускника';
+      document.getElementById('graduate-modal').classList.remove('hidden');
+    }
+
+    function closeGraduateModal() { document.getElementById('graduate-modal').classList.add('hidden'); }
+    function handleSaveGraduate(e) {
+      e.preventDefault();
+      const editId = document.getElementById('edit-grad-id').value;
+      const gradData = {
+        name: document.getElementById('grad-name').value,
+        faculty: document.getElementById('grad-faculty').value,
+        year: document.getElementById('grad-year').value,
+        work: document.getElementById('grad-work').value,
+        isRed: document.getElementById('grad-red').checked
+      };
+
+      if(editId) {
+        const idx = appData.graduates.findIndex(g => g.id == editId);
+        if(idx !== -1) appData.graduates[idx] = { id: Number(editId), ...gradData };
+      } else {
+        appData.graduates.push({ id: Date.now(), ...gradData });
+      }
+
+      saveData(); closeGraduateModal(); renderGraduates();
+    }
+
+    function deleteGraduate(id) {
+      if(confirm("Удалить карточку выпускника?")) {
+        appData.graduates = appData.graduates.filter(g => g.id !== id);
+        saveData(); renderGraduates();
+      }
+    }
+
+    // 4. СТУДЕНТЫ
+    function renderStudents() {
+      const tbody = document.getElementById('students-tbody');
+      if(!tbody) return;
+      sortStudentsAlphabetically();
+      tbody.innerHTML = (appData.students || []).map(st => `
+        <tr class="hover:bg-slate-50">
+          <td class="p-3 font-semibold text-slate-900">${st.name}</td>
+          <td class="p-3 text-slate-600">${st.faculty} (${st.course})</td>
+          <td class="p-3 text-slate-600">${st.card || '-'}</td>
+          <td class="p-3 text-slate-600">${st.phone || '-'}</td>
+          <td class="p-3 text-slate-600"><span class="px-2 py-0.5 bg-slate-100 rounded text-xs">${st.note || '-'}</span></td>
+          <td class="p-3 text-center">
+            <button onclick="editStudent(${st.id})" class="text-blue-600 hover:text-blue-800 text-xs font-semibold mr-2">✏ Изм.</button>
+            <button onclick="deleteStudent(${st.id})" class="text-red-500 hover:text-red-700 text-xs font-semibold">🗑 Уд.</button>
+          </td>
+        </tr>`).join('');
+    }
+
+    function openStudentModal() {
+      document.getElementById('modal-student-id').value = '';
+      document.getElementById('modal-student-name').value = '';
+      document.getElementById('modal-student-card').value = '';
+      document.getElementById('modal-student-phone').value = '';
+      document.getElementById('modal-student-note').value = '';
+      document.getElementById('student-modal-title').textContent = 'Добавить студента';
+      document.getElementById('student-modal').classList.remove('hidden');
+    }
+
+    function editStudent(id) {
+      const st = appData.students.find(s => s.id === id);
+      if(!st) return;
+      document.getElementById('modal-student-id').value = st.id;
+      document.getElementById('modal-student-name').value = st.name;
+      document.getElementById('modal-student-faculty').value = st.faculty;
+      document.getElementById('modal-student-course').value = st.course;
+      document.getElementById('modal-student-card').value = st.card || '';
+      document.getElementById('modal-student-phone').value = st.phone || '';
+      document.getElementById('modal-student-note').value = st.note || '';
+      document.getElementById('student-modal-title').textContent = 'Редактировать студента';
+      document.getElementById('student-modal').classList.remove('hidden');
+    }
+
+    function closeStudentModal() { document.getElementById('student-modal').classList.add('hidden'); }
+    function handleSaveStudent(e) {
+      e.preventDefault();
+      const editId = document.getElementById('modal-student-id').value;
+      const stData = {
+        name: document.getElementById('modal-student-name').value,
+        faculty: document.getElementById('modal-student-faculty').value,
+        course: document.getElementById('modal-student-course').value,
+        card: document.getElementById('modal-student-card').value,
+        phone: document.getElementById('modal-student-phone').value,
+        note: document.getElementById('modal-student-note').value
+      };
+
+      if(editId) {
+        const idx = appData.students.findIndex(s => s.id == editId);
+        if(idx !== -1) appData.students[idx] = { id: Number(editId), ...stData };
+      } else {
+        appData.students.push({ id: Date.now(), ...stData });
+      }
+
+      saveData(); closeStudentModal(); renderStudents(); renderJournal();
+    }
+
+    function deleteStudent(id) {
+      if(confirm("Удалить студента из базы?")) {
+        appData.students = appData.students.filter(s => s.id !== id);
+        saveData(); renderStudents(); renderJournal();
+      }
+    }
+
+    // 5. БИБЛИОТЕКА И РАСПИСАНИЕ
+    function renderLibrary() {
+      const container = document.getElementById('library-grid');
+      if(!container) return;
+      const books = appData.books || [];
+
+      container.innerHTML = books.map(b => `
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-col justify-between">
+          <div>
+            <span class="px-2 py-0.5 bg-blue-100 text-blue-700 text-[10px] font-bold rounded">${b.category}</span>
+            <h4 class="font-bold text-slate-900 mt-2 text-sm">${b.title}</h4>
+            <p class="text-xs text-slate-500 mt-1">Автор: ${b.author}</p>
+          </div>
+          <div class="mt-4 flex gap-2">
+            <a href="${b.link || '#'}" target="_blank" class="flex-grow text-center py-1.5 bg-white border text-blue-600 font-semibold text-xs rounded-lg">Открыть</a>
+            ${currentRole === 'teacher' ? `
+              <button onclick="editBook(${b.id})" class="px-2 py-1.5 bg-slate-100 text-blue-600 font-bold text-xs rounded-lg">✏</button>
+              <button onclick="deleteBook(${b.id})" class="px-2 py-1.5 bg-slate-100 text-red-500 font-bold text-xs rounded-lg">🗑</button>
+            ` : ''}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openBookModal() {
+      document.getElementById('edit-book-id').value = '';
+      document.getElementById('book-title').value = '';
+      document.getElementById('book-author').value = '';
+      document.getElementById('book-modal').classList.remove('hidden');
+    }
+    function editBook(id) {
+      const b = appData.books.find(item => item.id === id);
+      if(!b) return;
+      document.getElementById('edit-book-id').value = b.id;
+      document.getElementById('book-title').value = b.title;
+      document.getElementById('book-author').value = b.author;
+      document.getElementById('book-category').value = b.category;
+      document.getElementById('book-link').value = b.link || '#';
+      document.getElementById('book-modal').classList.remove('hidden');
+    }
+    function closeBookModal() { document.getElementById('book-modal').classList.add('hidden'); }
+    function handleSaveBook(e) {
+      e.preventDefault();
+      const editId = document.getElementById('edit-book-id').value;
+      const bData = {
+        title: document.getElementById('book-title').value,
+        author: document.getElementById('book-author').value,
+        category: document.getElementById('book-category').value,
+        link: document.getElementById('book-link').value
+      };
+      if(editId) {
+        const idx = appData.books.findIndex(b => b.id == editId);
+        if(idx !== -1) appData.books[idx] = { id: Number(editId), ...bData };
+      } else {
+        appData.books.push({ id: Date.now(), ...bData });
+      }
+      saveData(); closeBookModal(); renderLibrary();
+    }
+    function deleteBook(id) {
+      if(confirm("Удалить материал?")) {
+        appData.books = appData.books.filter(b => b.id !== id);
+        saveData(); renderLibrary();
+      }
+    }
+
+    function renderSchedule() {
+      const container = document.getElementById('schedule-days-container');
+      if(!container) return;
+      const days = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
+      const sched = appData.schedule || [];
+
+      container.innerHTML = days.map(day => {
+        const dayItems = sched.filter(s => s.day === day);
+        return `
+          <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
+            <h4 class="font-bold text-slate-800 text-sm mb-3">${day}</h4>
+            <div class="space-y-2">
+              ${dayItems.length === 0 ? '<p class="text-xs text-slate-400">Нет пар</p>' : dayItems.map(it => `
+                <div class="bg-white p-3 rounded-xl border border-slate-200 flex justify-between items-center text-xs">
+                  <div>
+                    <strong class="text-slate-900 text-sm block">${it.subject}</strong>
+                    <span class="text-slate-500">${it.room || 'Аудитория не указана'}</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="px-2.5 py-1 bg-blue-50 text-blue-700 font-semibold rounded-lg">${it.time}</span>
+                    ${currentRole === 'teacher' ? `
+                      <button onclick="deleteSchedule(${it.id})" class="text-red-500 font-bold hover:underline">✕</button>
+                    ` : ''}
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    function openScheduleModal() {
+      document.getElementById('edit-sched-id').value = '';
+      document.getElementById('schedule-modal').classList.remove('hidden');
+    }
+    function closeScheduleModal() { document.getElementById('schedule-modal').classList.add('hidden'); }
+    function handleSaveSchedule(e) {
+      e.preventDefault();
+      appData.schedule.push({
+        id: Date.now(),
+        day: document.getElementById('sched-day').value,
+        subject: document.getElementById('sched-subject').value,
+        time: document.getElementById('sched-time').value,
+        room: document.getElementById('sched-room').value
+      });
+      saveData(); closeScheduleModal(); renderSchedule();
+    }
+    function deleteSchedule(id) {
+      if(confirm("Удалить занятие из расписания?")) {
+        appData.schedule = appData.schedule.filter(s => s.id !== id);
+        saveData(); renderSchedule();
+      }
+    }
+
+    // ВСПОМОГАТЕЛЬНЫЕ
+    function renderRating() {
+      const container = document.getElementById('rating-list');
+      if(!container) return;
+      const students = appData.students || [];
+      const dates = appData.dates || [];
+
+      const list = students.map(st => {
+        let sum = 0, count = 0;
+        dates.forEach(d => {
+          const val = appData.journal[`${st.id}_${d.id}`];
+          if(['5','4','3','2'].includes(val)) { sum += Number(val); count++; }
+        });
+        const avg = count > 0 ? (sum / count) : 0;
+        return { ...st, avg };
+      }).sort((a,b) => b.avg - a.avg).slice(0, 10);
+
+      container.innerHTML = list.map((st, i) => `
+        <div class="flex items-center justify-between p-3.5 bg-slate-50 border border-slate-200 rounded-xl">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${i === 0 ? 'bg-amber-400 text-amber-950' : i === 1 ? 'bg-slate-300 text-slate-800' : i === 2 ? 'bg-amber-700 text-white' : 'bg-slate-200 text-slate-600'}">${i + 1}</span>
+            <div>
+              <div class="font-semibold text-slate-900">${st.name}</div>
+              <div class="text-xs text-slate-500">${st.faculty} (${st.course})</div>
+            </div>
+          </div>
+          <div class="text-right">
+            <span class="font-bold text-blue-600 text-lg">${st.avg ? st.avg.toFixed(2) : '0.00'}</span>
+            <div class="text-[10px] text-slate-400">Средний балл</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderSummary() {
+      const tbody = document.getElementById('summary-tbody');
+      if(!tbody) return;
+      const students = appData.students || [];
+      const dates = appData.dates || [];
+      sortStudentsAlphabetically();
+
+      tbody.innerHTML = students.map(st => {
+        let sum = 0, count = 0, misses = 0;
+        let count5 = 0, count4 = 0, count3 = 0, count2 = 0;
+
+        dates.forEach(d => {
+          const val = appData.journal[`${st.id}_${d.id}`];
+          if(val === '5') count5++;
+          if(val === '4') count4++;
+          if(val === '3') count3++;
+          if(val === '2') count2++;
+          if(['5','4','3','2'].includes(val)) { sum += Number(val); count++; }
+          if(val === 'Н') misses++;
+        });
+
+        const avg = count > 0 ? (sum / count).toFixed(2) : "-";
+        const status = avg >= 4.5 ? "Отлично" : avg >= 3.5 ? "Хорошо" : avg >= 3 ? "Удовлетворительно" : "Аттестация не пройдена";
+
+        return `
+          <tr class="hover:bg-slate-50">
+            <td class="p-3 font-semibold text-slate-900">${st.name}</td>
+            <td class="p-3 text-slate-600">${st.faculty} (${st.course})</td>
+            <td class="p-3 text-center font-bold text-blue-600 text-base">${avg}</td>
+            <td class="p-3 text-center text-xs">
+              <span class="text-emerald-600 font-bold">5: ${count5}</span> | 
+              <span class="text-blue-600 font-bold">4: ${count4}</span> | 
+              <span class="text-amber-600 font-bold">3: ${count3}</span> | 
+              <span class="text-red-600 font-bold">2: ${count2}</span>
+            </td>
+            <td class="p-3 text-center font-bold text-slate-700">${misses} н.</td>
+            <td class="p-3 text-center font-semibold text-xs">
+              <span class="px-2.5 py-1 rounded-full ${avg >= 3 ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}">${status}</span>
+            </td>
+          </tr>`;
+      }).join('');
+    }
+
+    function renderAnnouncement() {
+      const t = document.getElementById('announcement-title');
+      const b = document.getElementById('announcement-body');
+      if(t) t.textContent = appData.announcement?.title || "";
+      if(b) b.textContent = appData.announcement?.body || "";
+    }
+    function editAnnouncement() {
+      const title = prompt("Заголовок объявления:", appData.announcement?.title || "");
+      const body = prompt("Текст объявления:", appData.announcement?.body || "");
+      if(title !== null && body !== null) {
+        appData.announcement = { title, body };
+        saveData(); renderAnnouncement();
+      }
+    }
+
+    function renderSettings() {
+      renderDictList('faculties', 'list-faculties');
+      renderDictList('courses', 'list-courses');
+      renderDictList('subjects', 'list-subjects');
+    }
+    function renderDictList(key, elementId) {
+      const el = document.getElementById(elementId);
+      if(!el) return;
+      el.innerHTML = (appData[key] || []).map((item, idx) => `
+        <li class="flex justify-between items-center bg-white p-2 rounded-lg border text-sm">
+          <span>${item}</span>
+          <button onclick="removeDictionary('${key}', ${idx})" class="text-red-500 font-bold px-2">✕</button>
+        </li>`).join('');
+    }
+    function addDictionary(key, inputId) {
+      const val = document.getElementById(inputId).value.trim();
+      if(val && !appData[key].includes(val)) {
+        appData[key].push(val);
+        document.getElementById(inputId).value = '';
+        saveData(); initSelects(); renderSettings();
+      }
+    }
+    function removeDictionary(key, idx) {
+      appData[key].splice(idx, 1);
+      saveData(); initSelects(); renderSettings();
+    }
+
+    function exportJournalCSV() {
+      const selFac = document.getElementById('filter-faculty').value;
+      const selCourse = document.getElementById('filter-course').value;
+      const selSub = document.getElementById('filter-subject').value;
+
+      let students = (appData.students || []).filter(s => s.faculty === selFac && s.course === selCourse);
+      students.sort((a,b) => a.name.localeCompare(b.name, 'ru'));
+      let dates = (appData.dates || []).filter(d => d.subject === selSub);
+
+      let csv = `\uFEFFДисциплина: ${selSub};Факультет: ${selFac};Курс: ${selCourse}\n\nСтудент;`;
+      dates.forEach(d => { csv += `"${d.date} (${d.type})";`; });
+      csv += "Средний балл\n";
+
+      students.forEach(st => {
+        csv += `"${st.name}";`;
+        let sum = 0, count = 0;
+        dates.forEach(d => {
+          const val = appData.journal[`${st.id}_${d.id}`] || "";
+          if(['5','4','3','2'].includes(val)) { sum += Number(val); count++; }
+          csv += `"${val}";`;
+        });
+        const avg = count > 0 ? (sum / count).toFixed(2) : "-";
+        csv += `"${avg}"\n`;
+      });
+
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.setAttribute("href", url);
+      link.setAttribute("download", `Ведомость_${selSub}_${selFac}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  </script>
+</body>
+</html>
