@@ -759,8 +759,9 @@
       }
     }
 
-    initSelects();
+    initSelects(true);
 
+    let isInitialLoad = true;
     db.collection("gagramed").doc("main").onSnapshot((doc) => {
       if (doc.exists) {
         const data = doc.data();
@@ -782,7 +783,9 @@
         if(!appData.practice) appData.practice = [];
         
         sortStudentsAlphabetically();
-        initSelects();
+        initSelects(isInitialLoad);
+        isInitialLoad = false;
+        
         renderAnnouncement();
         renderJournal();
         renderPractice();
@@ -803,29 +806,53 @@
       db.collection("gagramed").doc("main").set(appData);
     }
 
-    function initSelects() {
+    function initSelects(keepValues = false) {
+      const facEl = document.getElementById('filter-faculty');
+      const crsEl = document.getElementById('filter-course');
+      const subEl = document.getElementById('filter-subject');
+
+      const currentFac = keepValues ? (facEl ? facEl.value : "") : (facEl ? facEl.value : "");
+      const currentCrs = keepValues ? (crsEl ? crsEl.value : "") : (crsEl ? crsEl.value : "");
+      const currentSub = keepValues ? (subEl ? subEl.value : "") : (subEl ? subEl.value : "");
+
       const facs = (appData.faculties && appData.faculties.length > 0) ? appData.faculties : DEFAULT_FACULTIES;
       const crs = (appData.courses && appData.courses.length > 0) ? appData.courses : DEFAULT_COURSES;
       const subs = (appData.subjects && appData.subjects.length > 0) ? appData.subjects : DEFAULT_SUBJECTS;
 
       ['filter-faculty', 'modal-student-faculty', 'grad-faculty'].forEach(id => {
         const el = document.getElementById(id);
-        if(el) el.innerHTML = facs.map(f => `<option value="${f}">${f}</option>`).join('');
+        if(el) {
+          const val = (id === 'filter-faculty' && currentFac && facs.includes(currentFac)) ? currentFac : el.value;
+          el.innerHTML = facs.map(f => `<option value="${f}">${f}</option>`).join('');
+          if(val) el.value = val;
+        }
       });
 
       ['filter-grad-fac'].forEach(id => {
         const el = document.getElementById(id);
-        if(el) el.innerHTML = `<option value="ALL">Все факультеты</option>` + facs.map(f => `<option value="${f}">${f}</option>`).join('');
+        if(el) {
+          const val = el.value;
+          el.innerHTML = `<option value="ALL">Все факультеты</option>` + facs.map(f => `<option value="${f}">${f}</option>`).join('');
+          if(val) el.value = val;
+        }
       });
 
       ['filter-course', 'modal-student-course'].forEach(id => {
         const el = document.getElementById(id);
-        if(el) el.innerHTML = crs.map(c => `<option value="${c}">${c}</option>`).join('');
+        if(el) {
+          const val = (id === 'filter-course' && currentCrs && crs.includes(currentCrs)) ? currentCrs : el.value;
+          el.innerHTML = crs.map(c => `<option value="${c}">${c}</option>`).join('');
+          if(val) el.value = val;
+        }
       });
 
       ['filter-subject', 'sched-subject'].forEach(id => {
         const el = document.getElementById(id);
-        if(el) el.innerHTML = subs.map(s => `<option value="${s}">${s}</option>`).join('');
+        if(el) {
+          const val = (id === 'filter-subject' && currentSub && subs.includes(currentSub)) ? currentSub : el.value;
+          el.innerHTML = subs.map(s => `<option value="${s}">${s}</option>`).join('');
+          if(val) el.value = val;
+        }
       });
 
       const studSel = document.getElementById('prac-student');
@@ -859,7 +886,7 @@
         badge.textContent = "Студент / Гость";
         badge.className = "px-3 py-1 bg-slate-100 text-slate-700 text-xs md:text-sm font-semibold rounded-full";
         logoutBtn.classList.add('hidden');
-        teacherCols.forEach(el => el.classList.remove('hidden')); // Оставляем видимыми колонки управления для сводки если надо, либо управляем классами
+        teacherCols.forEach(el => el.classList.remove('hidden'));
       }
       renderJournal();
       renderPractice();
@@ -1578,12 +1605,12 @@
       if(val && !appData[key].includes(val)) {
         appData[key].push(val);
         document.getElementById(inputId).value = '';
-        saveData(); initSelects(); renderSettings();
+        saveData(); initSelects(true); renderSettings();
       }
     }
     function removeDictionary(key, idx) {
       appData[key].splice(idx, 1);
-      saveData(); initSelects(); renderSettings();
+      saveData(); initSelects(true); renderSettings();
     }
 
     function exportJournalCSV() {
