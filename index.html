@@ -13,6 +13,14 @@
       #printable-area, #printable-area * { visibility: visible; }
       #printable-area { position: absolute; left: 0; top: 0; width: 100%; }
     }
+    /* Цветовая палитра оценок */
+    .grade-5 { background-color: #dcfce7 !important; color: #15803d !important; border-color: #86efac !important; }
+    .grade-4 { background-color: #dbeafe !important; color: #1d4ed8 !important; border-color: #93c5fd !important; }
+    .grade-3 { background-color: #fef3c7 !important; color: #b45309 !important; border-color: #fde047 !important; }
+    .grade-2 { background-color: #fee2e2 !important; color: #b91c1c !important; border-color: #fca5a5 !important; }
+    .grade-H { background-color: #f1f5f9 !important; color: #475569 !important; border-color: #cbd5e1 !important; }
+    .grade-Б { background-color: #f3e8ff !important; color: #6b21a8 !important; border-color: #d8b4fe !important; }
+    .grade-Зачет { background-color: #ccfbf1 !important; color: #0f766e !important; border-color: #5eead4 !important; }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
@@ -55,12 +63,12 @@
     <!-- Экран 2: Главная панель -->
     <section id="screen-journal" class="hidden screen space-y-6">
       
-      <!-- Инфоблок объявления и Секундомер -->
+      <!-- Инфоблок объявление и Секундомер -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <div class="lg:col-span-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-5 rounded-2xl shadow-sm relative overflow-hidden">
           <div class="flex justify-between items-start relative z-10">
             <div>
-              <span class="px-2.5 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-semibold">📢 Объявление училище</span>
+              <span class="px-2.5 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-semibold">📢 Объявление училища</span>
               <h3 id="announcement-title" class="font-bold text-lg mt-2">Важное объявление</h3>
             </div>
             <button class="hidden teacher-col text-xs text-blue-900 bg-white hover:bg-blue-50 font-medium px-3 py-1.5 rounded-lg shadow-sm" onclick="editAnnouncement()">✎ Редактировать</button>
@@ -98,7 +106,7 @@
 
       <!-- Вкладка 1: Журнал успеваемости -->
       <div id="tab-journal" class="tab-content bg-white border border-slate-200 rounded-2xl p-4 md:p-6 shadow-sm">
-        <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
+        <div class="flex flex-wrap justify-between items-center gap-4 mb-4">
           <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto">
             <div>
               <label class="block text-xs font-semibold text-slate-500 mb-1">Факультет</label>
@@ -113,16 +121,43 @@
               <select id="filter-subject" class="min-w-[180px] px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm font-medium outline-none cursor-pointer" onchange="renderJournal()"></select>
             </div>
             <div>
+              <label class="block text-xs font-semibold text-slate-500 mb-1">Месяц</label>
+              <select id="filter-month" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm font-medium outline-none cursor-pointer" onchange="renderJournal()">
+                <option value="ALL">Все месяцы</option>
+                <option value="09">Сентябрь</option>
+                <option value="10">Октябрь</option>
+                <option value="11">Ноябрь</option>
+                <option value="12">Декабрь</option>
+                <option value="01">Январь</option>
+                <option value="02">Февраль</option>
+                <option value="03">Март</option>
+                <option value="04">Апрель</option>
+                <option value="05">Май</option>
+                <option value="06">Июнь</option>
+              </select>
+            </div>
+            <div>
               <label class="block text-xs font-semibold text-slate-500 mb-1">Поиск</label>
               <input type="text" id="search-student-journal" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm font-medium outline-none" placeholder="ФИО..." oninput="renderJournal()">
             </div>
           </div>
           <div class="flex flex-wrap items-center gap-2">
             <button class="hidden teacher-col px-3.5 py-2 bg-amber-500 hover:bg-amber-600 text-white text-sm font-medium rounded-lg shadow-sm transition" onclick="pickRandomStudent()">🎲 Вызвать к доске</button>
-            <button class="hidden teacher-col px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg shadow-sm transition" onclick="openDateModal()">+ Дата</button>
+            <button class="hidden teacher-col px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg shadow-sm transition" onclick="openDateModal()">📅 + Дата</button>
             <button class="px-3.5 py-2 border border-slate-200 hover:bg-slate-100 text-slate-700 text-sm font-medium rounded-lg transition" onclick="exportJournalCSV()">📥 CSV</button>
             <button class="px-3.5 py-2 border border-slate-200 hover:bg-slate-100 text-slate-700 text-sm font-medium rounded-lg transition" onclick="showLanding()">Главная</button>
           </div>
+        </div>
+
+        <!-- Легенда цвета оценок -->
+        <div class="flex flex-wrap items-center gap-2 mb-4 p-2.5 bg-slate-50 rounded-xl border border-slate-200 text-xs">
+          <span class="font-semibold text-slate-600 mr-1">Палитра оценок:</span>
+          <span class="px-2 py-0.5 rounded font-bold border grade-5">5 (Отл)</span>
+          <span class="px-2 py-0.5 rounded font-bold border grade-4">4 (Хор)</span>
+          <span class="px-2 py-0.5 rounded font-bold border grade-3">3 (Удов)</span>
+          <span class="px-2 py-0.5 rounded font-bold border grade-2">2 (Неуд)</span>
+          <span class="px-2 py-0.5 rounded font-bold border grade-H">Н (Н/Я)</span>
+          <span class="px-2 py-0.5 rounded font-bold border grade-Б">Б (Больничный)</span>
         </div>
 
         <div class="overflow-x-auto border border-slate-200 rounded-xl">
@@ -391,6 +426,37 @@
     </div>
   </div>
 
+  <!-- Календарь и добавление даты -->
+  <div id="date-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-2xl p-6 w-full max-w-sm shadow-xl">
+      <h3 id="date-modal-title" class="font-bold text-lg mb-4">📅 Новое занятие в журнале</h3>
+      <form onsubmit="handleSaveDate(event)">
+        <input type="hidden" id="edit-date-id" value="">
+        <div class="mb-3">
+          <label class="block text-xs font-semibold text-slate-500 mb-1">Выбор даты из календаря</label>
+          <input type="date" id="modal-date-input" class="w-full px-3 py-2 border rounded-lg text-sm font-medium cursor-pointer" required>
+        </div>
+        <div class="mb-3">
+          <label class="block text-xs font-semibold text-slate-500 mb-1">Тип занятия</label>
+          <select id="modal-lesson-type" class="w-full px-3 py-2 border rounded-lg text-sm">
+            <option value="Лекция">Лекция</option>
+            <option value="Практика">Практика</option>
+            <option value="Зачет">Зачет</option>
+            <option value="Экзамен">Экзамен</option>
+          </select>
+        </div>
+        <div class="mb-4">
+          <label class="block text-xs font-semibold text-slate-500 mb-1">Пометка / Темы / Семестр</label>
+          <input type="text" id="modal-date-note" class="w-full px-3 py-2 border rounded-lg text-sm" placeholder="например, 1 модуль / Тема №2">
+        </div>
+        <div class="flex justify-end gap-2">
+          <button type="button" class="px-4 py-2 border rounded-lg text-sm" onclick="closeDateModal()">Отмена</button>
+          <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium">Добавить в журнал</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- Модалка добавления предмета в сводную ведомость -->
   <div id="summary-subject-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
     <div class="bg-white rounded-2xl p-6 w-full max-w-sm shadow-xl">
@@ -619,32 +685,6 @@
     </div>
   </div>
 
-  <div id="date-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
-    <div class="bg-white rounded-2xl p-6 w-full max-w-sm shadow-xl">
-      <h3 id="date-modal-title" class="font-bold text-lg mb-4">Занятие / Дата</h3>
-      <form onsubmit="handleSaveDate(event)">
-        <input type="hidden" id="edit-date-id" value="">
-        <div class="mb-3">
-          <label class="block text-xs font-semibold text-slate-500 mb-1">Дата</label>
-          <input type="date" id="modal-date-input" class="w-full px-3 py-2 border rounded-lg text-sm" required>
-        </div>
-        <div class="mb-4">
-          <label class="block text-xs font-semibold text-slate-500 mb-1">Тип занятия</label>
-          <select id="modal-lesson-type" class="w-full px-3 py-2 border rounded-lg text-sm">
-            <option value="Лекция">Лекция</option>
-            <option value="Практика">Практика</option>
-            <option value="Зачет">Зачет</option>
-            <option value="Экзамен">Экзамен</option>
-          </select>
-        </div>
-        <div class="flex justify-end gap-2">
-          <button type="button" class="px-4 py-2 border rounded-lg text-sm" onclick="closeDateModal()">Отмена</button>
-          <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm">Сохранить</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
   <!-- Карточка студента -->
   <div id="student-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
     <div class="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl">
@@ -726,12 +766,12 @@
       faculties: DEFAULT_FACULTIES,
       courses: DEFAULT_COURSES,
       subjects: DEFAULT_SUBJECTS,
-      grades: ["5", "4", "3", "2", "Н", "Зачет"],
+      grades: ["5", "4", "3", "2", "Н", "Б", "Зачет"],
       students: [
         { id: 1, name: "Ажиба Аида", faculty: "Сестринское дело", course: "1 курс", card: "1012", phone: "+7 (940) 123-45-67", note: "Староста" },
         { id: 2, name: "Барциц Даур", faculty: "Лечебное дело", course: "2 курс", card: "1015", phone: "", note: "" }
       ],
-      dates: [{ id: 'd1', date: "2026-10-01", type: "Лекция", subject: "Анатомия и физиология" }],
+      dates: [{ id: 'd1', date: "2026-10-01", type: "Лекция", subject: "Анатомия и физиология", note: "Вводное занятие" }],
       journal: { "1_d1": "5" },
       summarySubjects: {
         "Сестринское дело_1 курс": ["Анатомия и физиология", "Основы сестринского дела"]
@@ -788,7 +828,6 @@
       }
     }
 
-    // Инициализация при первом запуске
     initSelects(false);
 
     let isInitialLoad = true;
@@ -800,6 +839,7 @@
         if(!appData.faculties || !Array.isArray(appData.faculties) || appData.faculties.length === 0) appData.faculties = DEFAULT_FACULTIES;
         if(!appData.courses || !Array.isArray(appData.courses) || appData.courses.length === 0) appData.courses = DEFAULT_COURSES;
         if(!appData.subjects || !Array.isArray(appData.subjects) || appData.subjects.length === 0) appData.subjects = DEFAULT_SUBJECTS;
+        if(!appData.grades || !appData.grades.includes("Б")) appData.grades = ["5", "4", "3", "2", "Н", "Б", "Зачет"];
         if(!appData.summarySubjects) appData.summarySubjects = {};
         if(!appData.bells) appData.bells = [
           { pair: "1 пара", time: "08:30 – 10:00" },
@@ -854,31 +894,24 @@
       const crs = (appData.courses && appData.courses.length > 0) ? appData.courses : DEFAULT_COURSES;
       const subs = (appData.subjects && appData.subjects.length > 0) ? appData.subjects : DEFAULT_SUBJECTS;
 
-      // Заполняем селекты факультетов
       ['filter-faculty', 'modal-student-faculty', 'grad-faculty', 'sum-filter-faculty'].forEach(id => {
         const el = document.getElementById(id);
         if(el) {
           const prevVal = el.value || (id === 'filter-faculty' ? currentFac : (id === 'sum-filter-faculty' ? currentSumFac : ''));
           el.innerHTML = facs.map(f => `<option value="${f}">${f}</option>`).join('');
-          if(prevVal && facs.includes(prevVal)) {
-            el.value = prevVal;
-          }
+          if(prevVal && facs.includes(prevVal)) el.value = prevVal;
         }
       });
 
-      // Заполняем селекты курсов
       ['filter-course', 'modal-student-course', 'sum-filter-course'].forEach(id => {
         const el = document.getElementById(id);
         if(el) {
           const prevVal = el.value || (id === 'filter-course' ? currentCrs : (id === 'sum-filter-course' ? currentSumCrs : ''));
           el.innerHTML = crs.map(c => `<option value="${c}">${c}</option>`).join('');
-          if(prevVal && crs.includes(prevVal)) {
-            el.value = prevVal;
-          }
+          if(prevVal && crs.includes(prevVal)) el.value = prevVal;
         }
       });
 
-      // Фильтр факультетов для выпускников (с опцией ALL)
       const gradFacEl = document.getElementById('filter-grad-fac');
       if(gradFacEl) {
         const prevGradFac = gradFacEl.value;
@@ -886,7 +919,6 @@
         if(prevGradFac) gradFacEl.value = prevGradFac;
       }
 
-      // Дисциплины
       ['filter-subject', 'sched-subject', 'modal-sum-subject'].forEach(id => {
         const el = document.getElementById(id);
         if(el) {
@@ -896,7 +928,6 @@
         }
       });
 
-      // Студенты для практики
       const studSel = document.getElementById('prac-student');
       if(studSel) {
         studSel.innerHTML = (appData.students || []).map(st => `<option value="${st.id}">${st.name} (${st.faculty})</option>`).join('');
@@ -989,11 +1020,25 @@
       alert(`🎲 К ДОСКЕ ВЫЗЫВАЕТСЯ:\n\n👤 ${randomStudent.name}\n📚 ${randomStudent.faculty} (${randomStudent.course})`);
     }
 
+    // Вспомогательный класс подсветки
+    function getGradeClass(val) {
+      if(!val) return '';
+      if(val === '5') return 'grade-5';
+      if(val === '4') return 'grade-4';
+      if(val === '3') return 'grade-3';
+      if(val === '2') return 'grade-2';
+      if(val === 'Н') return 'grade-H';
+      if(val === 'Б') return 'grade-Б';
+      if(val === 'Зачет') return 'grade-Зачет';
+      return '';
+    }
+
     // 1. ЖУРНАЛ
     function renderJournal() {
       const selFacEl = document.getElementById('filter-faculty');
       const selCourseEl = document.getElementById('filter-course');
       const selSubEl = document.getElementById('filter-subject');
+      const selMonth = document.getElementById('filter-month')?.value || 'ALL';
 
       const selFac = selFacEl ? selFacEl.value : "";
       const selCourse = selCourseEl ? selCourseEl.value : "";
@@ -1004,52 +1049,70 @@
       students.sort((a,b) => a.name.localeCompare(b.name, 'ru'));
 
       if(searchVal) students = students.filter(st => st.name.toLowerCase().includes(searchVal));
-      const dates = (appData.dates || []).filter(d => d.subject === selSub);
+      
+      let dates = (appData.dates || []).filter(d => d.subject === selSub);
+      if(selMonth !== 'ALL') {
+        dates = dates.filter(d => {
+          const m = d.date.split('-')[1];
+          return m === selMonth;
+        });
+      }
 
       const headerRow = document.getElementById('journal-header-row');
       let htmlHead = `<th class="p-3 sticky left-0 bg-slate-100 z-10 min-w-[220px]">Студент (А–Я)</th>`;
       dates.forEach(d => {
         htmlHead += `
-          <th class="p-2.5 text-center min-w-[110px] border-l border-slate-200">
+          <th class="p-2.5 text-center min-w-[120px] border-l border-slate-200">
             <div class="font-bold text-xs">${d.date}</div>
-            <div class="text-[10px] text-slate-500 font-normal">${d.type}</div>
+            <div class="text-[10px] text-slate-500 font-normal">${d.type} ${d.note ? `(${d.note})` : ''}</div>
             ${currentRole === 'teacher' ? `
-              <div class="flex justify-center gap-1 mt-1">
-                <button onclick="deleteDate('${d.id}')" title="Удалить дату" class="text-red-500 hover:text-red-700 text-[10px] font-bold">✕</button>
+              <div class="flex justify-center items-center gap-1 mt-1.5">
+                <button onclick="bulkSetGrade('${d.id}')" title="Выставить оценку автоматически всем" class="bg-blue-100 hover:bg-blue-200 text-blue-700 text-[10px] px-1.5 py-0.5 rounded font-bold transition">⚡ Авто</button>
+                <button onclick="deleteDate('${d.id}')" title="Удалить дату" class="text-red-500 hover:text-red-700 text-[10px] font-bold px-1">✕</button>
               </div>
             ` : ''}
           </th>`;
       });
-      htmlHead += `<th class="p-3 text-center bg-slate-200 font-bold min-w-[80px]">Ср. балл</th>`;
+      htmlHead += `
+        <th class="p-3 text-center bg-slate-200 font-bold min-w-[80px]">Ср. балл</th>
+        <th class="p-3 text-center bg-purple-100 text-purple-900 font-bold min-w-[90px]">Больничные (Б)</th>
+      `;
       if(headerRow) headerRow.innerHTML = htmlHead;
 
       const bodyRows = document.getElementById('journal-body-rows');
       if(!bodyRows) return;
 
       if(students.length === 0) {
-        bodyRows.innerHTML = `<tr><td colspan="${dates.length + 2}" class="p-6 text-center text-slate-400">Нет студентов в группе</td></tr>`;
+        bodyRows.innerHTML = `<tr><td colspan="${dates.length + 3}" class="p-6 text-center text-slate-400">Нет студентов в группе</td></tr>`;
         return;
       }
 
       bodyRows.innerHTML = students.map(st => {
-        let sum = 0, count = 0;
+        let sum = 0, count = 0, sickCount = 0;
         let row = `<tr class="hover:bg-slate-50"><td class="p-3 font-medium sticky left-0 bg-white border-r">${st.name}</td>`;
         dates.forEach(d => {
           const key = `${st.id}_${d.id}`;
           const val = appData.journal[key] || "";
           if(['5','4','3','2'].includes(val)) { sum += Number(val); count++; }
+          if(val === 'Б') sickCount++;
+
+          const cls = getGradeClass(val);
+
           row += `
             <td class="p-1 text-center border-l">
               ${currentRole === 'teacher' ? `
-                <select onchange="updateGrade(${st.id}, '${d.id}', this.value)" class="w-full text-center bg-slate-50 border rounded text-xs font-bold py-1">
-                  <option value="">-</option>
-                  ${(appData.grades || []).map(g => `<option value="${g}" ${val === g ? 'selected' : ''}>${g}</option>`).join('')}
+                <select onchange="updateGrade(${st.id}, '${d.id}', this.value)" class="w-full text-center border rounded text-xs font-bold py-1 ${cls}">
+                  <option value="" class="bg-white text-slate-800">-</option>
+                  ${(appData.grades || []).map(g => `<option value="${g}" ${val === g ? 'selected' : ''} class="bg-white text-slate-800">${g}</option>`).join('')}
                 </select>
-              ` : `<span class="font-bold text-xs">${val || '-'}</span>`}
+              ` : `<span class="px-2 py-1 rounded font-bold text-xs border ${cls}">${val || '-'}</span>`}
             </td>`;
         });
         const avg = count > 0 ? (sum / count).toFixed(2) : "-";
-        row += `<td class="p-3 text-center font-bold text-blue-600 bg-slate-50">${avg}</td></tr>`;
+        row += `
+          <td class="p-3 text-center font-bold text-blue-600 bg-slate-50">${avg}</td>
+          <td class="p-3 text-center font-bold text-purple-700 bg-purple-50">${sickCount} б.</td>
+        </tr>`;
         return row;
       }).join('');
     }
@@ -1060,7 +1123,38 @@
       saveData(); renderJournal(); renderRating(); renderSummary();
     }
 
-    function openDateModal() { document.getElementById('date-modal').classList.remove('hidden'); }
+    // Автоматическая выставка оценок всей группе
+    function bulkSetGrade(dateId) {
+      const selectedGrade = prompt("Введите оценку/отметку для автовыставления всей группе (5, 4, 3, 2, Н, Б, Зачет):", "5");
+      if(selectedGrade === null) return;
+
+      const trimmed = selectedGrade.trim();
+      if(!appData.grades.includes(trimmed) && trimmed !== "") {
+        alert("Недопустимое значение! Допустимо: " + appData.grades.join(', '));
+        return;
+      }
+
+      const selFac = document.getElementById('filter-faculty').value;
+      const selCourse = document.getElementById('filter-course').value;
+      const students = (appData.students || []).filter(s => s.faculty === selFac && s.course === selCourse);
+
+      students.forEach(st => {
+        if(trimmed === "") {
+          delete appData.journal[`${st.id}_${dateId}`];
+        } else {
+          appData.journal[`${st.id}_${dateId}`] = trimmed;
+        }
+      });
+
+      saveData(); renderJournal(); renderRating(); renderSummary();
+    }
+
+    function openDateModal() {
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('modal-date-input').value = today;
+      document.getElementById('modal-date-note').value = '';
+      document.getElementById('date-modal').classList.remove('hidden');
+    }
     function closeDateModal() { document.getElementById('date-modal').classList.add('hidden'); }
     function handleSaveDate(e) {
       e.preventDefault();
@@ -1068,6 +1162,7 @@
         id: 'd_' + Date.now(),
         date: document.getElementById('modal-date-input').value,
         type: document.getElementById('modal-lesson-type').value,
+        note: document.getElementById('modal-date-note').value,
         subject: document.getElementById('filter-subject').value
       });
       saveData(); closeDateModal(); renderJournal(); renderSummary();
@@ -1107,7 +1202,7 @@
             <td class="p-3 font-semibold">${st.name}</td>
             <td class="p-3 text-xs">${p.type}</td>
             <td class="p-3 text-slate-700">${p.base}</td>
-            <td class="p-3 text-xs text-slate-500">ЛПУ: ${p.mentorLpu || '-'}<br>Училище: ${p.mentorCollege || '-'}</td>
+            <td class="p-3 text-xs text-slate-500">ЛПУ: ${p.mentorLpu || '-'}<br>У училища: ${p.mentorCollege || '-'}</td>
             <td class="p-3 text-center font-bold">${p.hours} ч.</td>
             <td class="p-3 text-center"><span class="px-2 py-0.5 rounded text-xs font-bold ${p.status === 'Зачтено' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">${p.status}</span></td>
             <td class="p-3 text-center">
@@ -1613,7 +1708,6 @@
       let students = (appData.students || []).filter(s => s.faculty === fac && s.course === crs);
       students.sort((a,b) => a.name.localeCompare(b.name, 'ru'));
 
-      // Шапка таблицы сводной
       let headHtml = `<th class="p-3 sticky left-0 bg-slate-100 z-10 min-w-[200px]">Студент (А–Я)</th>`;
       subjects.forEach(sub => {
         headHtml += `
@@ -1625,18 +1719,19 @@
       headHtml += `
         <th class="p-3 text-center bg-slate-200 font-bold">Ср. балл</th>
         <th class="p-3 text-center bg-slate-200 font-bold">Пропуски (Н)</th>
+        <th class="p-3 text-center bg-purple-100 text-purple-900 font-bold">Больничные (Б)</th>
         <th class="p-3 text-center bg-slate-200 font-bold">Статус</th>
         <th class="p-3 text-center bg-slate-200 font-bold teacher-col">Управление</th>
       `;
       headerRow.innerHTML = headHtml;
 
       if(students.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="${subjects.length + 5}" class="p-6 text-center text-slate-400">Нет студентов для выбранного курса и факультета</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="${subjects.length + 6}" class="p-6 text-center text-slate-400">Нет студентов для выбранного курса и факультета</td></tr>`;
         return;
       }
 
       tbody.innerHTML = students.map(st => {
-        let totalSum = 0, totalCount = 0, totalMisses = 0;
+        let totalSum = 0, totalCount = 0, totalMisses = 0, totalSick = 0;
 
         let row = `<tr class="hover:bg-slate-50"><td class="p-3 font-semibold sticky left-0 bg-white border-r">${st.name}</td>`;
         
@@ -1650,6 +1745,7 @@
               subCount++;
             }
             if(val === 'Н') totalMisses++;
+            if(val === 'Б') totalSick++;
           });
 
           const subAvg = subCount > 0 ? (subSum / subCount).toFixed(2) : "-";
@@ -1667,6 +1763,7 @@
         row += `
           <td class="p-3 text-center font-bold text-blue-600 bg-slate-50">${overallAvg}</td>
           <td class="p-3 text-center font-bold text-slate-700">${totalMisses} н.</td>
+          <td class="p-3 text-center font-bold text-purple-700 bg-purple-50">${totalSick} б.</td>
           <td class="p-3 text-center font-semibold text-xs">
             <span class="px-2.5 py-1 rounded-full ${overallAvg >= 3 ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}">${status}</span>
           </td>
@@ -1733,18 +1830,19 @@
 
       let csv = `\uFEFFДисциплина: ${selSub};Факультет: ${selFac};Курс: ${selCourse}\n\nСтудент;`;
       dates.forEach(d => { csv += `"${d.date} (${d.type})";`; });
-      csv += "Средний балл\n";
+      csv += "Средний балл;Больничные (Б)\n";
 
       students.forEach(st => {
         csv += `"${st.name}";`;
-        let sum = 0, count = 0;
+        let sum = 0, count = 0, sickCount = 0;
         dates.forEach(d => {
           const val = appData.journal[`${st.id}_${d.id}`] || "";
           if(['5','4','3','2'].includes(val)) { sum += Number(val); count++; }
+          if(val === 'Б') sickCount++;
           csv += `"${val}";`;
         });
         const avg = count > 0 ? (sum / count).toFixed(2) : "-";
-        csv += `"${avg}"\n`;
+        csv += `"${avg}";"${sickCount}"\n`;
       });
 
       const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
