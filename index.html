@@ -272,25 +272,34 @@
 
       <!-- Вкладка 7: Сводная ведомость -->
       <div id="tab-summary" class="tab-content hidden bg-white border border-slate-200 rounded-2xl p-4 md:p-6 shadow-sm">
-        <div class="flex justify-between items-center mb-4">
+        <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
           <div>
-            <h3 class="font-bold text-lg text-slate-800">📊 Сводная ведомость успеваемости и панель управления</h3>
-            <p class="text-xs text-slate-500">Автоматический расчёт оценок и управление данными студентов</p>
+            <h3 class="font-bold text-lg text-slate-800">📊 Сводная ведомость успеваемости</h3>
+            <p class="text-xs text-slate-500">Автоматический расчёт оценок по выбранному курсу и предметам</p>
           </div>
-          <button class="hidden teacher-col px-3.5 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg shadow-sm" onclick="openStudentModal()">+ Добавить студента</button>
+          <div class="flex items-center gap-2">
+            <button class="hidden teacher-col px-3.5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg shadow-sm" onclick="openSummarySubjectModal()">+ Добавить предмет в ведомость</button>
+            <button class="hidden teacher-col px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg shadow-sm" onclick="openStudentModal()">+ Добавить студента</button>
+          </div>
+        </div>
+
+        <!-- Фильтры курса и факультета для сводной -->
+        <div class="flex flex-wrap items-center gap-3 mb-6 bg-slate-50 p-4 rounded-xl border border-slate-200">
+          <div>
+            <label class="block text-xs font-semibold text-slate-500 mb-1">Факультет</label>
+            <select id="sum-filter-faculty" class="px-3 py-2 bg-white border border-slate-200 rounded-lg text-sm font-medium outline-none" onchange="renderSummary()"></select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-500 mb-1">Курс</label>
+            <select id="sum-filter-course" class="px-3 py-2 bg-white border border-slate-200 rounded-lg text-sm font-medium outline-none" onchange="renderSummary()"></select>
+          </div>
         </div>
 
         <div class="overflow-x-auto border border-slate-200 rounded-xl">
           <table class="w-full border-collapse text-left text-sm">
             <thead>
-              <tr class="bg-slate-100 text-slate-700 border-b border-slate-200">
-                <th class="p-3">Студент (А–Я)</th>
-                <th class="p-3">Факультет / Курс</th>
-                <th class="p-3 text-center">Средний балл</th>
-                <th class="p-3 text-center">Оценки (5/4/3/2)</th>
-                <th class="p-3 text-center">Пропуски (Н)</th>
-                <th class="p-3 text-center">Статус</th>
-                <th class="p-3 text-center teacher-col hidden">Управление</th>
+              <tr id="summary-header-row" class="bg-slate-100 text-slate-700 border-b border-slate-200">
+                <th class="p-3 sticky left-0 bg-slate-100 z-10 min-w-[200px]">Студент (А–Я)</th>
               </tr>
             </thead>
             <tbody id="summary-tbody" class="divide-y divide-slate-100"></tbody>
@@ -377,6 +386,23 @@
         <div class="flex justify-end gap-2">
           <button type="button" class="px-4 py-2 border rounded-lg text-sm" onclick="window.closeAuthModal()">Отмена</button>
           <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium">Войти</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Модалка добавления предмета в сводную ведомость -->
+  <div id="summary-subject-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-2xl p-6 w-full max-w-sm shadow-xl">
+      <h3 class="font-bold text-lg mb-4">Выбор предмета в ведомость</h3>
+      <form onsubmit="handleSaveSummarySubject(event)">
+        <div class="mb-4">
+          <label class="block text-xs font-semibold text-slate-500 mb-1">Дисциплина</label>
+          <select id="modal-sum-subject" class="w-full px-3 py-2 border rounded-lg text-sm"></select>
+        </div>
+        <div class="flex justify-end gap-2">
+          <button type="button" class="px-4 py-2 border rounded-lg text-sm" onclick="closeSummarySubjectModal()">Отмена</button>
+          <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm">Добавить</button>
         </div>
       </form>
     </div>
@@ -707,6 +733,9 @@
       ],
       dates: [{ id: 'd1', date: "2026-10-01", type: "Лекция", subject: "Анатомия и физиология" }],
       journal: { "1_d1": "5" },
+      summarySubjects: {
+        "Сестринское дело_1 курс": ["Анатомия и физиология", "Основы сестринского дела"]
+      },
       practice: [],
       graduates: [
         { id: 1, name: "Квициния Мадина Руслановна", faculty: "Лечебное дело", year: "2023", work: "Гагрская ЦРБ, врач-фельдшер", isRed: true }
@@ -759,7 +788,8 @@
       }
     }
 
-    initSelects(true);
+    // Инициализация при первом запуске
+    initSelects(false);
 
     let isInitialLoad = true;
     db.collection("gagramed").doc("main").onSnapshot((doc) => {
@@ -770,6 +800,7 @@
         if(!appData.faculties || !Array.isArray(appData.faculties) || appData.faculties.length === 0) appData.faculties = DEFAULT_FACULTIES;
         if(!appData.courses || !Array.isArray(appData.courses) || appData.courses.length === 0) appData.courses = DEFAULT_COURSES;
         if(!appData.subjects || !Array.isArray(appData.subjects) || appData.subjects.length === 0) appData.subjects = DEFAULT_SUBJECTS;
+        if(!appData.summarySubjects) appData.summarySubjects = {};
         if(!appData.bells) appData.bells = [
           { pair: "1 пара", time: "08:30 – 10:00" },
           { pair: "2 пара", time: "10:10 – 11:40" },
@@ -783,7 +814,7 @@
         if(!appData.practice) appData.practice = [];
         
         sortStudentsAlphabetically();
-        initSelects(isInitialLoad);
+        initSelects(!isInitialLoad);
         isInitialLoad = false;
         
         renderAnnouncement();
@@ -806,55 +837,66 @@
       db.collection("gagramed").doc("main").set(appData);
     }
 
-    function initSelects(keepValues = false) {
+    function initSelects(keepValues = true) {
       const facEl = document.getElementById('filter-faculty');
       const crsEl = document.getElementById('filter-course');
       const subEl = document.getElementById('filter-subject');
+      const sumFacEl = document.getElementById('sum-filter-faculty');
+      const sumCrsEl = document.getElementById('sum-filter-course');
 
-      const currentFac = keepValues ? (facEl ? facEl.value : "") : (facEl ? facEl.value : "");
-      const currentCrs = keepValues ? (crsEl ? crsEl.value : "") : (crsEl ? crsEl.value : "");
-      const currentSub = keepValues ? (subEl ? subEl.value : "") : (subEl ? subEl.value : "");
+      const currentFac = keepValues && facEl ? facEl.value : "";
+      const currentCrs = keepValues && crsEl ? crsEl.value : "";
+      const currentSub = keepValues && subEl ? subEl.value : "";
+      const currentSumFac = keepValues && sumFacEl ? sumFacEl.value : "";
+      const currentSumCrs = keepValues && sumCrsEl ? sumCrsEl.value : "";
 
       const facs = (appData.faculties && appData.faculties.length > 0) ? appData.faculties : DEFAULT_FACULTIES;
       const crs = (appData.courses && appData.courses.length > 0) ? appData.courses : DEFAULT_COURSES;
       const subs = (appData.subjects && appData.subjects.length > 0) ? appData.subjects : DEFAULT_SUBJECTS;
 
-      ['filter-faculty', 'modal-student-faculty', 'grad-faculty'].forEach(id => {
+      // Заполняем селекты факультетов
+      ['filter-faculty', 'modal-student-faculty', 'grad-faculty', 'sum-filter-faculty'].forEach(id => {
         const el = document.getElementById(id);
         if(el) {
-          const val = (id === 'filter-faculty' && currentFac && facs.includes(currentFac)) ? currentFac : el.value;
+          const prevVal = el.value || (id === 'filter-faculty' ? currentFac : (id === 'sum-filter-faculty' ? currentSumFac : ''));
           el.innerHTML = facs.map(f => `<option value="${f}">${f}</option>`).join('');
-          if(val) el.value = val;
+          if(prevVal && facs.includes(prevVal)) {
+            el.value = prevVal;
+          }
         }
       });
 
-      ['filter-grad-fac'].forEach(id => {
+      // Заполняем селекты курсов
+      ['filter-course', 'modal-student-course', 'sum-filter-course'].forEach(id => {
         const el = document.getElementById(id);
         if(el) {
-          const val = el.value;
-          el.innerHTML = `<option value="ALL">Все факультеты</option>` + facs.map(f => `<option value="${f}">${f}</option>`).join('');
-          if(val) el.value = val;
-        }
-      });
-
-      ['filter-course', 'modal-student-course'].forEach(id => {
-        const el = document.getElementById(id);
-        if(el) {
-          const val = (id === 'filter-course' && currentCrs && crs.includes(currentCrs)) ? currentCrs : el.value;
+          const prevVal = el.value || (id === 'filter-course' ? currentCrs : (id === 'sum-filter-course' ? currentSumCrs : ''));
           el.innerHTML = crs.map(c => `<option value="${c}">${c}</option>`).join('');
-          if(val) el.value = val;
+          if(prevVal && crs.includes(prevVal)) {
+            el.value = prevVal;
+          }
         }
       });
 
-      ['filter-subject', 'sched-subject'].forEach(id => {
+      // Фильтр факультетов для выпускников (с опцией ALL)
+      const gradFacEl = document.getElementById('filter-grad-fac');
+      if(gradFacEl) {
+        const prevGradFac = gradFacEl.value;
+        gradFacEl.innerHTML = `<option value="ALL">Все факультеты</option>` + facs.map(f => `<option value="${f}">${f}</option>`).join('');
+        if(prevGradFac) gradFacEl.value = prevGradFac;
+      }
+
+      // Дисциплины
+      ['filter-subject', 'sched-subject', 'modal-sum-subject'].forEach(id => {
         const el = document.getElementById(id);
         if(el) {
-          const val = (id === 'filter-subject' && currentSub && subs.includes(currentSub)) ? currentSub : el.value;
+          const prevSub = el.value || currentSub;
           el.innerHTML = subs.map(s => `<option value="${s}">${s}</option>`).join('');
-          if(val) el.value = val;
+          if(prevSub && subs.includes(prevSub)) el.value = prevSub;
         }
       });
 
+      // Студенты для практики
       const studSel = document.getElementById('prac-student');
       if(studSel) {
         studSel.innerHTML = (appData.students || []).map(st => `<option value="${st.id}">${st.name} (${st.faculty})</option>`).join('');
@@ -1524,50 +1566,117 @@
       `).join('');
     }
 
+    function openSummarySubjectModal() {
+      document.getElementById('summary-subject-modal').classList.remove('hidden');
+    }
+    function closeSummarySubjectModal() {
+      document.getElementById('summary-subject-modal').classList.add('hidden');
+    }
+    function handleSaveSummarySubject(e) {
+      e.preventDefault();
+      const fac = document.getElementById('sum-filter-faculty').value;
+      const crs = document.getElementById('sum-filter-course').value;
+      const sub = document.getElementById('modal-sum-subject').value;
+      const key = `${fac}_${crs}`;
+
+      if(!appData.summarySubjects) appData.summarySubjects = {};
+      if(!appData.summarySubjects[key]) appData.summarySubjects[key] = [];
+
+      if(!appData.summarySubjects[key].includes(sub)) {
+        appData.summarySubjects[key].push(sub);
+        saveData();
+      }
+      closeSummarySubjectModal();
+      renderSummary();
+    }
+    function removeSummarySubject(subName) {
+      const fac = document.getElementById('sum-filter-faculty').value;
+      const crs = document.getElementById('sum-filter-course').value;
+      const key = `${fac}_${crs}`;
+      if(appData.summarySubjects && appData.summarySubjects[key]) {
+        appData.summarySubjects[key] = appData.summarySubjects[key].filter(s => s !== subName);
+        saveData();
+        renderSummary();
+      }
+    }
+
     function renderSummary() {
+      const headerRow = document.getElementById('summary-header-row');
       const tbody = document.getElementById('summary-tbody');
-      if(!tbody) return;
-      const students = appData.students || [];
-      const dates = appData.dates || [];
-      sortStudentsAlphabetically();
+      if(!headerRow || !tbody) return;
+
+      const fac = document.getElementById('sum-filter-faculty').value;
+      const crs = document.getElementById('sum-filter-course').value;
+      const key = `${fac}_${crs}`;
+      const subjects = (appData.summarySubjects && appData.summarySubjects[key]) ? appData.summarySubjects[key] : [];
+
+      let students = (appData.students || []).filter(s => s.faculty === fac && s.course === crs);
+      students.sort((a,b) => a.name.localeCompare(b.name, 'ru'));
+
+      // Шапка таблицы сводной
+      let headHtml = `<th class="p-3 sticky left-0 bg-slate-100 z-10 min-w-[200px]">Студент (А–Я)</th>`;
+      subjects.forEach(sub => {
+        headHtml += `
+          <th class="p-3 text-center border-l bg-slate-100 min-w-[120px]">
+            <div class="font-bold text-xs">${sub}</div>
+            ${currentRole === 'teacher' ? `<button onclick="removeSummarySubject('${sub}')" class="text-red-500 text-[10px] font-bold hover:underline mt-1">Удалить предмет</button>` : ''}
+          </th>`;
+      });
+      headHtml += `
+        <th class="p-3 text-center bg-slate-200 font-bold">Ср. балл</th>
+        <th class="p-3 text-center bg-slate-200 font-bold">Пропуски (Н)</th>
+        <th class="p-3 text-center bg-slate-200 font-bold">Статус</th>
+        <th class="p-3 text-center bg-slate-200 font-bold teacher-col">Управление</th>
+      `;
+      headerRow.innerHTML = headHtml;
+
+      if(students.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="${subjects.length + 5}" class="p-6 text-center text-slate-400">Нет студентов для выбранного курса и факультета</td></tr>`;
+        return;
+      }
 
       tbody.innerHTML = students.map(st => {
-        let sum = 0, count = 0, misses = 0;
-        let count5 = 0, count4 = 0, count3 = 0, count2 = 0;
+        let totalSum = 0, totalCount = 0, totalMisses = 0;
 
-        dates.forEach(d => {
-          const val = appData.journal[`${st.id}_${d.id}`];
-          if(val === '5') count5++;
-          if(val === '4') count4++;
-          if(val === '3') count3++;
-          if(val === '2') count2++;
-          if(['5','4','3','2'].includes(val)) { sum += Number(val); count++; }
-          if(val === 'Н') misses++;
+        let row = `<tr class="hover:bg-slate-50"><td class="p-3 font-semibold sticky left-0 bg-white border-r">${st.name}</td>`;
+        
+        subjects.forEach(sub => {
+          const subDates = (appData.dates || []).filter(d => d.subject === sub);
+          let subSum = 0, subCount = 0;
+          subDates.forEach(d => {
+            const val = appData.journal[`${st.id}_${d.id}`];
+            if(['5','4','3','2'].includes(val)) {
+              subSum += Number(val);
+              subCount++;
+            }
+            if(val === 'Н') totalMisses++;
+          });
+
+          const subAvg = subCount > 0 ? (subSum / subCount).toFixed(2) : "-";
+          if(subCount > 0) {
+            totalSum += Number(subAvg);
+            totalCount++;
+          }
+
+          row += `<td class="p-3 text-center border-l font-bold text-slate-700">${subAvg}</td>`;
         });
 
-        const avg = count > 0 ? (sum / count).toFixed(2) : "-";
-        const status = avg >= 4.5 ? "Отлично" : avg >= 3.5 ? "Хорошо" : avg >= 3 ? "Удовлетворительно" : "Аттестация не пройдена";
+        const overallAvg = totalCount > 0 ? (totalSum / totalCount).toFixed(2) : "-";
+        const status = overallAvg >= 4.5 ? "Отлично" : overallAvg >= 3.5 ? "Хорошо" : overallAvg >= 3 ? "Удовлетворительно" : (overallAvg === "-" ? "Нет оценок" : "Не аттестован");
 
-        return `
-          <tr class="hover:bg-slate-50">
-            <td class="p-3 font-semibold text-slate-900">${st.name}</td>
-            <td class="p-3 text-slate-600">${st.faculty} (${st.course})</td>
-            <td class="p-3 text-center font-bold text-blue-600 text-base">${avg}</td>
-            <td class="p-3 text-center text-xs">
-              <span class="text-emerald-600 font-bold">5: ${count5}</span> | 
-              <span class="text-blue-600 font-bold">4: ${count4}</span> | 
-              <span class="text-amber-600 font-bold">3: ${count3}</span> | 
-              <span class="text-red-600 font-bold">2: ${count2}</span>
-            </td>
-            <td class="p-3 text-center font-bold text-slate-700">${misses} н.</td>
-            <td class="p-3 text-center font-semibold text-xs">
-              <span class="px-2.5 py-1 rounded-full ${avg >= 3 ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}">${status}</span>
-            </td>
-            <td class="p-3 text-center teacher-col">
-              <button onclick="editStudent(${st.id})" class="text-xs text-blue-600 font-semibold mr-2">✏ Ред.</button>
-              <button onclick="deleteStudent(${st.id})" class="text-xs text-red-500 font-semibold">🗑 Уд.</button>
-            </td>
-          </tr>`;
+        row += `
+          <td class="p-3 text-center font-bold text-blue-600 bg-slate-50">${overallAvg}</td>
+          <td class="p-3 text-center font-bold text-slate-700">${totalMisses} н.</td>
+          <td class="p-3 text-center font-semibold text-xs">
+            <span class="px-2.5 py-1 rounded-full ${overallAvg >= 3 ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}">${status}</span>
+          </td>
+          <td class="p-3 text-center teacher-col">
+            <button onclick="editStudent(${st.id})" class="text-xs text-blue-600 font-semibold mr-2">✏ Ред.</button>
+            <button onclick="deleteStudent(${st.id})" class="text-xs text-red-500 font-semibold">🗑 Уд.</button>
+          </td>
+        </tr>`;
+
+        return row;
       }).join('');
     }
 
