@@ -91,7 +91,7 @@
         <button class="px-4 py-2 bg-white text-slate-600 hover:bg-slate-100 font-medium text-sm rounded-lg border border-slate-200 whitespace-nowrap tab-btn" onclick="switchTab('rating', event)">🏆 Рейтинг ТОП-10</button>
         <button class="px-4 py-2 bg-white text-slate-600 hover:bg-slate-100 font-medium text-sm rounded-lg border border-slate-200 whitespace-nowrap tab-btn" onclick="switchTab('schedule', event)">📅 Расписание</button>
         <button class="px-4 py-2 bg-white text-slate-600 hover:bg-slate-100 font-medium text-sm rounded-lg border border-slate-200 whitespace-nowrap tab-btn" onclick="switchTab('library', event)">📚 Библиотека</button>
-        <button class="px-4 py-2 bg-white text-slate-600 hover:bg-slate-100 font-medium text-sm rounded-lg border border-slate-200 whitespace-nowrap tab-btn" onclick="switchTab('summary', event)">📊 Итоговая сводка</button>
+        <button class="px-4 py-2 bg-white text-slate-600 hover:bg-slate-100 font-medium text-sm rounded-lg border border-slate-200 whitespace-nowrap tab-btn" onclick="switchTab('summary', event)">📊 Сводная ведомость</button>
         <button class="hidden teacher-col px-4 py-2 bg-amber-50 text-amber-800 hover:bg-amber-100 font-medium text-sm rounded-lg border border-amber-200 whitespace-nowrap tab-btn" onclick="switchTab('students', event)">👥 Студенты</button>
         <button class="hidden teacher-col px-4 py-2 bg-slate-100 text-slate-700 hover:bg-slate-200 font-medium text-sm rounded-lg border border-slate-200 whitespace-nowrap tab-btn" onclick="switchTab('settings', event)">⚙ Справочники</button>
       </div>
@@ -270,10 +270,15 @@
         <div id="library-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
       </div>
 
-      <!-- Вкладка 7: Итоговая сводка -->
+      <!-- Вкладка 7: Сводная ведомость -->
       <div id="tab-summary" class="tab-content hidden bg-white border border-slate-200 rounded-2xl p-4 md:p-6 shadow-sm">
-        <h3 class="font-bold text-lg text-slate-800 mb-1">Сводная ведомость успеваемости</h3>
-        <p class="text-xs text-slate-500 mb-6">Автоматический расчёт среднего балла и пропусков</p>
+        <div class="flex justify-between items-center mb-4">
+          <div>
+            <h3 class="font-bold text-lg text-slate-800">📊 Сводная ведомость успеваемости и панель управления</h3>
+            <p class="text-xs text-slate-500">Автоматический расчёт оценок и управление данными студентов</p>
+          </div>
+          <button class="hidden teacher-col px-3.5 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg shadow-sm" onclick="openStudentModal()">+ Добавить студента</button>
+        </div>
 
         <div class="overflow-x-auto border border-slate-200 rounded-xl">
           <table class="w-full border-collapse text-left text-sm">
@@ -285,6 +290,7 @@
                 <th class="p-3 text-center">Оценки (5/4/3/2)</th>
                 <th class="p-3 text-center">Пропуски (Н)</th>
                 <th class="p-3 text-center">Статус</th>
+                <th class="p-3 text-center teacher-col hidden">Управление</th>
               </tr>
             </thead>
             <tbody id="summary-tbody" class="divide-y divide-slate-100"></tbody>
@@ -454,7 +460,7 @@
         <input type="hidden" id="edit-grad-id" value="">
         <div class="mb-3">
           <label class="block text-xs font-semibold text-slate-500 mb-1">ФИО Выпускника</label>
-          <input type="text" id="grad-name" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm outline-none" required placeholder="Аршба Илона Вадимовna">
+          <input type="text" id="grad-name" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm outline-none" required placeholder="Аршба Илона Вадимовна">
         </div>
         <div class="grid grid-cols-2 gap-3 mb-3">
           <div>
@@ -613,6 +619,7 @@
     </div>
   </div>
 
+  <!-- Карточка студента -->
   <div id="student-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
     <div class="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl">
       <h3 id="student-modal-title" class="font-bold text-lg mb-4">Карточка студента</h3>
@@ -852,7 +859,7 @@
         badge.textContent = "Студент / Гость";
         badge.className = "px-3 py-1 bg-slate-100 text-slate-700 text-xs md:text-sm font-semibold rounded-full";
         logoutBtn.classList.add('hidden');
-        teacherCols.forEach(el => el.classList.add('hidden'));
+        teacherCols.forEach(el => el.classList.remove('hidden')); // Оставляем видимыми колонки управления для сводки если надо, либо управляем классами
       }
       renderJournal();
       renderPractice();
@@ -860,6 +867,7 @@
       renderLibrary();
       renderSchedule();
       renderStudents();
+      renderSummary();
     }
 
     function openAuthModal() { 
@@ -980,7 +988,7 @@
     function updateGrade(studentId, dateId, val) {
       if(val) appData.journal[`${studentId}_${dateId}`] = val;
       else delete appData.journal[`${studentId}_${dateId}`];
-      saveData(); renderJournal(); renderRating();
+      saveData(); renderJournal(); renderRating(); renderSummary();
     }
 
     function openDateModal() { document.getElementById('date-modal').classList.remove('hidden'); }
@@ -993,12 +1001,12 @@
         type: document.getElementById('modal-lesson-type').value,
         subject: document.getElementById('filter-subject').value
       });
-      saveData(); closeDateModal(); renderJournal();
+      saveData(); closeDateModal(); renderJournal(); renderSummary();
     }
     function deleteDate(dateId) {
       if(confirm("Удалить эту дату и оценки?")) {
         appData.dates = appData.dates.filter(d => d.id !== dateId);
-        saveData(); renderJournal();
+        saveData(); renderJournal(); renderSummary();
       }
     }
 
@@ -1267,13 +1275,13 @@
         appData.students.push({ id: Date.now(), ...stData });
       }
 
-      saveData(); closeStudentModal(); renderStudents(); renderJournal();
+      saveData(); closeStudentModal(); renderStudents(); renderJournal(); renderSummary();
     }
 
     function deleteStudent(id) {
       if(confirm("Удалить студента из базы?")) {
         appData.students = appData.students.filter(s => s.id !== id);
-        saveData(); renderStudents(); renderJournal();
+        saveData(); renderStudents(); renderJournal(); renderSummary();
       }
     }
 
@@ -1373,7 +1381,6 @@
           </div>`;
       }).join('');
 
-      // Рендер звонков
       const bellsContainer = document.getElementById('bells-container');
       if(bellsContainer && appData.bells) {
         bellsContainer.innerHTML = appData.bells.map(b => `
@@ -1456,7 +1463,7 @@
       saveData(); closeBellsModal(); renderSchedule();
     }
 
-    // ВСПОМОГАТЕЛЬНЫЕ
+    // РЕЙТИНГ И СВОДНАЯ ВЕДОМОСТЬ
     function renderRating() {
       const container = document.getElementById('rating-list');
       if(!container) return;
@@ -1528,6 +1535,10 @@
             <td class="p-3 text-center font-bold text-slate-700">${misses} н.</td>
             <td class="p-3 text-center font-semibold text-xs">
               <span class="px-2.5 py-1 rounded-full ${avg >= 3 ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}">${status}</span>
+            </td>
+            <td class="p-3 text-center teacher-col">
+              <button onclick="editStudent(${st.id})" class="text-xs text-blue-600 font-semibold mr-2">✏ Ред.</button>
+              <button onclick="deleteStudent(${st.id})" class="text-xs text-red-500 font-semibold">🗑 Уд.</button>
             </td>
           </tr>`;
       }).join('');
